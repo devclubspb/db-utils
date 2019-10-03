@@ -1,3 +1,3 @@
 # db-utils
 
-The db utilities.
+Database utilities.
