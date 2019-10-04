@@ -16,7 +16,8 @@ public class ResultSetUtils {
                     return item;
                 }
             }
-            throw new IllegalArgumentException("enum type has no constant " + result);
+            throw new IllegalArgumentException("Enum \"" + enumItems.getClass().getComponentType().getName() +
+                    "\" doesn't contain a constant by the string value \"" + result + "\".");
         }
         return null;
     }
