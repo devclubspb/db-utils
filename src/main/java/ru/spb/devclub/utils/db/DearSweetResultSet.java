@@ -5,7 +5,8 @@ import java.sql.SQLException;
 import java.util.OptionalLong;
 
 public class DearSweetResultSet extends AbstractSweetResultSet {
-    protected DearSweetResultSet(ResultSet resultSet) {
+    @SuppressWarnings("WeakerAccess")
+    public DearSweetResultSet(ResultSet resultSet) {
         super(resultSet);
     }
 
