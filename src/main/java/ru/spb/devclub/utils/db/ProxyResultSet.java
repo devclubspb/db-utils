@@ -8,12 +8,12 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
 
-public abstract class AbstractSweetResultSet implements SweetResultSet {
+/* package */abstract class ProxyResultSet implements ResultSet {
     @SuppressWarnings("WeakerAccess")
     protected final ResultSet resultSet;
 
     @SuppressWarnings("WeakerAccess")
-    protected AbstractSweetResultSet(ResultSet resultSet) {
+    protected ProxyResultSet(ResultSet resultSet) {
         this.resultSet = resultSet;
     }
 
