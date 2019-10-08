@@ -7,7 +7,10 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 
 @SuppressWarnings("WeakerAccess")
-public class ResultSetUtils {
+public final class ResultSetUtils {
+    private ResultSetUtils() {
+    }
+
     public static <T> T getEnumValue(ResultSet rs, String columnName, T[] enumItems) throws SQLException {
         String result = rs.getString(columnName);
         if (!rs.wasNull()) {
@@ -54,5 +57,19 @@ public class ResultSetUtils {
 
     public static BoxedResultSet boxed(ResultSet resultSet) {
         return new SimpleBoxedResultSet(resultSet);
+    }
+
+    /**
+     * Wraps to {@link ru.spb.devclub.utils.db.OptionalResultSet}.
+     *
+     * @param resultSet the {@link java.sql.ResultSet} instance
+     * @return the {@code resultSet} wrapped to {@link ru.spb.devclub.utils.db.SimpleOptionalResultSet}
+     * @see ru.spb.devclub.utils.db.OptionalResultSet
+     * @see ru.spb.devclub.utils.db.SimpleOptionalResultSet
+     * @see java.sql.ResultSet
+     * @since 0.1.0
+     */
+    public static OptionalResultSet optional(ResultSet resultSet) {
+        return new SimpleOptionalResultSet(resultSet);
     }
 }
