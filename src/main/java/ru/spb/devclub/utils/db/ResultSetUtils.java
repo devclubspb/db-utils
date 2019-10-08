@@ -51,4 +51,8 @@ public class ResultSetUtils {
         Date date = rs.getDate(columnName);
         return !rs.wasNull() ? dateFormat.format(date) : null;
     }
+
+    public static BoxedResultSet boxed(ResultSet resultSet) {
+        return new SimpleBoxedResultSet(resultSet);
+    }
 }
