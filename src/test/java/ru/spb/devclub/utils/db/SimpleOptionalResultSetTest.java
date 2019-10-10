@@ -55,6 +55,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalStringByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<String> optionalString = resultSet.getOptionalString("ignored");
+        assertFalse(optionalString.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalBooleanByColumnIndex() throws SQLException {
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -88,6 +100,18 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<Boolean> optionalBoolean = resultSet.getOptionalBoolean("ignored");
         assertEquals(true, optionalBoolean.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalBooleanByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Boolean> optionalBoolean = resultSet.getOptionalBoolean("ignored");
+        assertFalse(optionalBoolean.isPresent());
     }
 
     @Test
@@ -129,6 +153,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalByteByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Byte> optionalByte = resultSet.getOptionalByte("ignored");
+        assertFalse(optionalByte.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalShortByColumnIndex() throws SQLException {
         Short expected = 4_000;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -164,6 +200,18 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<Short> optionalShort = resultSet.getOptionalShort("ignored");
         assertEquals(expected, optionalShort.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalShortByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Short> optionalShort = resultSet.getOptionalShort("ignored");
+        assertFalse(optionalShort.isPresent());
     }
 
     @Test
@@ -205,6 +253,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalIntegerByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        OptionalInt optionalInteger = resultSet.getOptionalInt("ignored");
+        assertFalse(optionalInteger.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalLongByColumnIndex() throws SQLException {
         long expected = 40_000L;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -240,6 +300,18 @@ public class SimpleOptionalResultSetTest {
         });
         OptionalLong optionalLong = resultSet.getOptionalLong("ignored");
         assertEquals(expected, optionalLong.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalLongByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        OptionalLong optionalLong = resultSet.getOptionalLong("ignored");
+        assertFalse(optionalLong.isPresent());
     }
 
     @Test
@@ -281,6 +353,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalFloatByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Float> optionalFloat = resultSet.getOptionalFloat("ignored");
+        assertFalse(optionalFloat.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalDoubleByColumnIndex() throws SQLException {
         double expected = 40_000D;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -316,6 +400,18 @@ public class SimpleOptionalResultSetTest {
         });
         OptionalDouble optionalDouble = resultSet.getOptionalDouble("ignored");
         assertEquals(expected, optionalDouble.orElseThrow(IllegalArgumentException::new), .1);
+    }
+
+    @Test
+    public void checkNullFromGetOptionalDoubleByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        OptionalDouble optionalDouble = resultSet.getOptionalDouble("ignored");
+        assertFalse(optionalDouble.isPresent());
     }
 
     @Test
@@ -357,6 +453,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalBytesByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<byte[]> optionalBytes = resultSet.getOptionalBytes("ignored");
+        assertFalse(optionalBytes.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalDateByColumnIndex() throws SQLException {
         Date expected = Date.valueOf("2004-04-04");
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -392,6 +500,18 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<Date> optionalDate = resultSet.getOptionalDate("ignored");
         assertEquals(expected, optionalDate.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalDateByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Date> optionalDate = resultSet.getOptionalDate("ignored");
+        assertFalse(optionalDate.isPresent());
     }
 
     @Test
@@ -433,6 +553,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalTimeByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Time> optionalTime = resultSet.getOptionalTime("ignored");
+        assertFalse(optionalTime.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalTimestampByColumnIndex() throws SQLException {
         Timestamp expected = Timestamp.valueOf("2004-04-04 04:04:04.004");
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -471,6 +603,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalTimestampByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp("ignored");
+        assertFalse(optionalTimestamp.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalBigDecimalByColumnIndex() throws SQLException {
         BigDecimal expected = BigDecimal.valueOf(40_000L);
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -506,5 +650,17 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal("ignored");
         assertEquals(expected, optionalBigDecimal.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalBigDecimalByColumnName() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal("ignored");
+        assertFalse(optionalBigDecimal.isPresent());
     }
 }
