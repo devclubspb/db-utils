@@ -17,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 
 public class SimpleOptionalResultSetTest {
     @Test
-    public void checkCorrectValueFromGetOptionalStringByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalStringByColumnIndex() throws SQLException {
         String expected = "forty thousand";
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -30,7 +30,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalBooleanByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalBooleanByColumnIndex() throws SQLException {
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
             public boolean getBoolean(int columnIndex) {
@@ -43,7 +43,7 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     @SuppressWarnings("WrapperTypeMayBePrimitive")
-    public void checkCorrectValueFromGetOptionalByteByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalByteByColumnIndex() throws SQLException {
         Byte expected = 40;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -57,7 +57,7 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     @SuppressWarnings("WrapperTypeMayBePrimitive")
-    public void checkCorrectValueFromGetOptionalShortByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalShortByColumnIndex() throws SQLException {
         Short expected = 4_000;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -70,7 +70,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalIntegerByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalIntegerByColumnIndex() throws SQLException {
         int expected = 40_000;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -83,7 +83,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalLongByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalLongByColumnIndex() throws SQLException {
         long expected = 40_000L;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -122,7 +122,7 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     @SuppressWarnings("WrapperTypeMayBePrimitive")
-    public void checkCorrectValueFromGetOptionalFloatByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalFloatByColumnIndex() throws SQLException {
         Float expected = 40_000F;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -135,7 +135,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalDoubleByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalDoubleByColumnIndex() throws SQLException {
         double expected = 40_000D;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -148,7 +148,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalBytesByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalBytesByColumnIndex() throws SQLException {
         byte[] expected = new byte[]{4, 0, 0, 0, 0};
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -161,7 +161,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalDateByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalDateByColumnIndex() throws SQLException {
         Date expected = Date.valueOf("2004-04-04");
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -174,7 +174,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalTimeByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalTimeByColumnIndex() throws SQLException {
         Time expected = Time.valueOf("04:04:04");
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -187,7 +187,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalTimestampByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalTimestampByColumnIndex() throws SQLException {
         Timestamp expected = Timestamp.valueOf("2004-04-04 04:04:04.004");
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
@@ -200,7 +200,7 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    public void checkCorrectValueFromGetOptionalBigDecimalByColumnIndex() throws SQLException {
+    public void checkExpectedValueFromGetOptionalBigDecimalByColumnIndex() throws SQLException {
         BigDecimal expected = BigDecimal.valueOf(40_000L);
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
             @Override
