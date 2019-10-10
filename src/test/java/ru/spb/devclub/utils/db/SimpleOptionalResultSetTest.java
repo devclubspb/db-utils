@@ -679,6 +679,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalRefByColumnIndex() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Ref> optionalRef = resultSet.getOptionalRef(0);
+        assertFalse(optionalRef.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalBlobByColumnIndex() throws SQLException {
         Blob expected = new MockBlob(new byte[]{4, 0, 0, 0, 0});
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -689,6 +701,18 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<Blob> optionalBlob = resultSet.getOptionalBlob(0);
         assertEquals(expected, optionalBlob.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalBlobByColumnIndex() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Blob> optionalBlob = resultSet.getOptionalBlob(0);
+        assertFalse(optionalBlob.isPresent());
     }
 
     @Test
@@ -705,6 +729,18 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
+    public void checkNullFromGetOptionalClobByColumnIndex() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Clob> optionalClob = resultSet.getOptionalClob(0);
+        assertFalse(optionalClob.isPresent());
+    }
+
+    @Test
     public void checkExpectedValueFromGetOptionalArrayByColumnIndex() throws SQLException {
         Array expected = new MockArray("forty thousand");
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -715,5 +751,17 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<Array> optionalArray = resultSet.getOptionalArray(0);
         assertEquals(expected, optionalArray.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkNullFromGetOptionalArrayByColumnIndex() throws SQLException {
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public boolean wasNull() {
+                return true;
+            }
+        });
+        Optional<Array> optionalArray = resultSet.getOptionalArray(0);
+        assertFalse(optionalArray.isPresent());
     }
 }
