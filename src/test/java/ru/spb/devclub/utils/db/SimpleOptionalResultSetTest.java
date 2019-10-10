@@ -42,7 +42,6 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    @SuppressWarnings("WrapperTypeMayBePrimitive")
     public void checkExpectedValueFromGetOptionalByteByColumnIndex() throws SQLException {
         Byte expected = 40;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -56,7 +55,6 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    @SuppressWarnings("WrapperTypeMayBePrimitive")
     public void checkExpectedValueFromGetOptionalShortByColumnIndex() throws SQLException {
         Short expected = 4_000;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
@@ -121,7 +119,6 @@ public class SimpleOptionalResultSetTest {
     }
 
     @Test
-    @SuppressWarnings("WrapperTypeMayBePrimitive")
     public void checkExpectedValueFromGetOptionalFloatByColumnIndex() throws SQLException {
         Float expected = 40_000F;
         OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
