@@ -20,48 +20,43 @@ import static org.junit.Assert.assertFalse;
 public class SimpleOptionalResultSetTest {
     @Test
     public void checkExpectedValueFromGetOptionalStringByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         String expected = "forty thousand";
-        ResultSet mock = Mockito.mock(ResultSet.class);
-        Mockito.when(mock.getString(0)).thenReturn(expected);
-        OptionalResultSet resultSet = ResultSetUtils.optional(mock);
-        Optional<String> optionalString = resultSet.getOptionalString(0);
+        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
+        Mockito.when(mockResultSet.getString(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<String> optionalString = resultSet.getOptionalString(columnIndex);
         assertEquals(expected, optionalString.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalStringByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<String> optionalString = resultSet.getOptionalString(0);
+        int columnIndex = 0;
+        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<String> optionalString = resultSet.getOptionalString(columnIndex);
         assertFalse(optionalString.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalStringByColumnName() throws SQLException {
+        String columnName = "ignored";
         String expected = "forty thousand";
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public String getString(String columnName) {
-                return expected;
-            }
-        });
-        Optional<String> optionalString = resultSet.getOptionalString("ignored");
+        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
+        Mockito.when(mockResultSet.getString(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<String> optionalString = resultSet.getOptionalString(columnName);
         assertEquals(expected, optionalString.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalStringByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<String> optionalString = resultSet.getOptionalString("ignored");
+        String columnName = "ignored";
+        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<String> optionalString = resultSet.getOptionalString(columnName);
         assertFalse(optionalString.isPresent());
     }
 
