@@ -1,12 +1,13 @@
 package ru.spb.devclub.utils.db;
 
+import com.mockrunner.mock.jdbc.MockArray;
+import com.mockrunner.mock.jdbc.MockBlob;
+import com.mockrunner.mock.jdbc.MockClob;
+import com.mockrunner.mock.jdbc.MockRef;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -662,5 +663,57 @@ public class SimpleOptionalResultSetTest {
         });
         Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal("ignored");
         assertFalse(optionalBigDecimal.isPresent());
+    }
+
+    @Test
+    public void checkExpectedValueFromGetOptionalRefByColumnIndex() throws SQLException {
+        Ref expected = new MockRef(40_000);
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public Ref getRef(int columnIndex) {
+                return expected;
+            }
+        });
+        Optional<Ref> optionalRef = resultSet.getOptionalRef(0);
+        assertEquals(expected, optionalRef.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetOptionalBlobByColumnIndex() throws SQLException {
+        Blob expected = new MockBlob(new byte[]{4, 0, 0, 0, 0});
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public Blob getBlob(int columnIndex) {
+                return expected;
+            }
+        });
+        Optional<Blob> optionalBlob = resultSet.getOptionalBlob(0);
+        assertEquals(expected, optionalBlob.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetOptionalClobByColumnIndex() throws SQLException {
+        Clob expected = new MockClob("forty thousand");
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public Clob getClob(int columnIndex) {
+                return expected;
+            }
+        });
+        Optional<Clob> optionalClob = resultSet.getOptionalClob(0);
+        assertEquals(expected, optionalClob.orElseThrow(IllegalArgumentException::new));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetOptionalArrayByColumnIndex() throws SQLException {
+        Array expected = new MockArray("forty thousand");
+        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
+            @Override
+            public Array getArray(int columnIndex) {
+                return expected;
+            }
+        });
+        Optional<Array> optionalArray = resultSet.getOptionalArray(0);
+        assertEquals(expected, optionalArray.orElseThrow(IllegalArgumentException::new));
     }
 }
