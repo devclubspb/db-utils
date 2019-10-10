@@ -5,6 +5,7 @@ import com.mockrunner.mock.jdbc.MockBlob;
 import com.mockrunner.mock.jdbc.MockClob;
 import com.mockrunner.mock.jdbc.MockRef;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -20,12 +21,9 @@ public class SimpleOptionalResultSetTest {
     @Test
     public void checkExpectedValueFromGetOptionalStringByColumnIndex() throws SQLException {
         String expected = "forty thousand";
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public String getString(int columnIndex) {
-                return expected;
-            }
-        });
+        ResultSet mock = Mockito.mock(ResultSet.class);
+        Mockito.when(mock.getString(0)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mock);
         Optional<String> optionalString = resultSet.getOptionalString(0);
         assertEquals(expected, optionalString.orElseThrow(IllegalArgumentException::new));
     }
