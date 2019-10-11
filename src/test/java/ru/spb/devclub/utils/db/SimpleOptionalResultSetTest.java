@@ -297,51 +297,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalDoubleByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         double expected = 40_000D;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public double getDouble(int columnIndex) {
-                return expected;
-            }
-        });
-        OptionalDouble optionalDouble = resultSet.getOptionalDouble(0);
+        Mockito.when(mockResultSet.getDouble(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalDouble optionalDouble = resultSet.getOptionalDouble(columnIndex);
         assertEquals(expected, optionalDouble.orElseThrow(IllegalArgumentException::new), .1);
     }
 
     @Test
     public void checkNullFromGetOptionalDoubleByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        OptionalDouble optionalDouble = resultSet.getOptionalDouble(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalDouble optionalDouble = resultSet.getOptionalDouble(columnIndex);
         assertFalse(optionalDouble.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalDoubleByColumnName() throws SQLException {
+        String columnName = "ignored";
         double expected = 40_000D;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public double getDouble(String columnName) {
-                return expected;
-            }
-        });
-        OptionalDouble optionalDouble = resultSet.getOptionalDouble("ignored");
+        Mockito.when(mockResultSet.getDouble(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalDouble optionalDouble = resultSet.getOptionalDouble(columnName);
         assertEquals(expected, optionalDouble.orElseThrow(IllegalArgumentException::new), .1);
     }
 
     @Test
     public void checkNullFromGetOptionalDoubleByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        OptionalDouble optionalDouble = resultSet.getOptionalDouble("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalDouble optionalDouble = resultSet.getOptionalDouble(columnName);
         assertFalse(optionalDouble.isPresent());
     }
 
