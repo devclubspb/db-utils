@@ -183,51 +183,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalIntegerByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         int expected = 40_000;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public int getInt(int columnIndex) {
-                return expected;
-            }
-        });
-        OptionalInt optionalInteger = resultSet.getOptionalInt(0);
+        Mockito.when(mockResultSet.getInt(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalInt optionalInteger = resultSet.getOptionalInt(columnIndex);
         assertEquals(expected, optionalInteger.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalIntegerByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        OptionalInt optionalInteger = resultSet.getOptionalInt(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalInt optionalInteger = resultSet.getOptionalInt(columnIndex);
         assertFalse(optionalInteger.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalIntegerByColumnName() throws SQLException {
+        String columnName = "ignored";
         int expected = 40_000;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public int getInt(String columnName) {
-                return expected;
-            }
-        });
-        OptionalInt optionalInteger = resultSet.getOptionalInt("ignored");
+        Mockito.when(mockResultSet.getInt(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalInt optionalInteger = resultSet.getOptionalInt(columnName);
         assertEquals(expected, optionalInteger.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalIntegerByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        OptionalInt optionalInteger = resultSet.getOptionalInt("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalInt optionalInteger = resultSet.getOptionalInt(columnName);
         assertFalse(optionalInteger.isPresent());
     }
 
