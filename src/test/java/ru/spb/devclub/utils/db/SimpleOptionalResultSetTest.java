@@ -601,51 +601,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalClobByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Clob expected = new MockClob("forty thousand");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Clob getClob(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Clob> optionalClob = resultSet.getOptionalClob(0);
+        Mockito.when(mockResultSet.getClob(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Clob> optionalClob = resultSet.getOptionalClob(columnIndex);
         assertEquals(expected, optionalClob.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalClobByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Clob> optionalClob = resultSet.getOptionalClob(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Clob> optionalClob = resultSet.getOptionalClob(columnIndex);
         assertFalse(optionalClob.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalClobByColumnName() throws SQLException {
+        String columnName = "ignored";
         Clob expected = new MockClob("forty thousand");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Clob getClob(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Clob> optionalClob = resultSet.getOptionalClob("ignored");
+        Mockito.when(mockResultSet.getClob(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Clob> optionalClob = resultSet.getOptionalClob(columnName);
         assertEquals(expected, optionalClob.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalClobByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Clob> optionalClob = resultSet.getOptionalClob("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Clob> optionalClob = resultSet.getOptionalClob(columnName);
         assertFalse(optionalClob.isPresent());
     }
 
