@@ -15,7 +15,7 @@ import java.util.OptionalLong;
  * @see java.sql.ResultSet
  * @see java.util.Optional
  * @see java.util.OptionalDouble
- * @see java.util.OptionalInt;
+ * @see java.util.OptionalInt
  * @see java.util.OptionalLong
  * @since 0.1.0
  */
