@@ -449,51 +449,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalTimestampByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Timestamp expected = Timestamp.valueOf("2004-04-04 04:04:04.004");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Timestamp getTimestamp(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp(0);
+        Mockito.when(mockResultSet.getTimestamp(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp(columnIndex);
         assertEquals(expected, optionalTimestamp.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalTimestampByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp(columnIndex);
         assertFalse(optionalTimestamp.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalTimestampByColumnName() throws SQLException {
+        String columnName = "ignored";
         Timestamp expected = Timestamp.valueOf("2004-04-04 04:04:04.004");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Timestamp getTimestamp(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp("ignored");
+        Mockito.when(mockResultSet.getTimestamp(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp(columnName);
         assertEquals(expected, optionalTimestamp.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalTimestampByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Timestamp> optionalTimestamp = resultSet.getOptionalTimestamp(columnName);
         assertFalse(optionalTimestamp.isPresent());
     }
 
