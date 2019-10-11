@@ -259,51 +259,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalFloatByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Float expected = 40_000F;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public float getFloat(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Float> optionalFloat = resultSet.getOptionalFloat(0);
+        Mockito.when(mockResultSet.getFloat(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Float> optionalFloat = resultSet.getOptionalFloat(columnIndex);
         assertEquals(expected, optionalFloat.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalFloatByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Float> optionalFloat = resultSet.getOptionalFloat(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Float> optionalFloat = resultSet.getOptionalFloat(columnIndex);
         assertFalse(optionalFloat.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalFloatByColumnName() throws SQLException {
+        String columnName = "ignored";
         Float expected = 40_000F;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public float getFloat(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Float> optionalFloat = resultSet.getOptionalFloat("ignored");
+        Mockito.when(mockResultSet.getFloat(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Float> optionalFloat = resultSet.getOptionalFloat(columnName);
         assertEquals(expected, optionalFloat.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalFloatByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Float> optionalFloat = resultSet.getOptionalFloat("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Float> optionalFloat = resultSet.getOptionalFloat(columnName);
         assertFalse(optionalFloat.isPresent());
     }
 
