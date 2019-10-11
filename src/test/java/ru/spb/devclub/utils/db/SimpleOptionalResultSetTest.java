@@ -487,51 +487,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalBigDecimalByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         BigDecimal expected = BigDecimal.valueOf(40_000L);
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public BigDecimal getBigDecimal(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal(0);
+        Mockito.when(mockResultSet.getBigDecimal(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal(columnIndex);
         assertEquals(expected, optionalBigDecimal.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalBigDecimalByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal(columnIndex);
         assertFalse(optionalBigDecimal.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalBigDecimalByColumnName() throws SQLException {
+        String columnName = "ignored";
         BigDecimal expected = BigDecimal.valueOf(40_000L);
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public BigDecimal getBigDecimal(String columnName) {
-                return expected;
-            }
-        });
-        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal("ignored");
+        Mockito.when(mockResultSet.getBigDecimal(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal(columnName);
         assertEquals(expected, optionalBigDecimal.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalBigDecimalByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<BigDecimal> optionalBigDecimal = resultSet.getOptionalBigDecimal(columnName);
         assertFalse(optionalBigDecimal.isPresent());
     }
 
