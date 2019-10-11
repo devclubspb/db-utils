@@ -411,51 +411,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalTimeByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Time expected = Time.valueOf("04:04:04");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Time getTime(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Time> optionalTime = resultSet.getOptionalTime(0);
+        Mockito.when(mockResultSet.getTime(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Time> optionalTime = resultSet.getOptionalTime(columnIndex);
         assertEquals(expected, optionalTime.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalTimeByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Time> optionalTime = resultSet.getOptionalTime(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Time> optionalTime = resultSet.getOptionalTime(columnIndex);
         assertFalse(optionalTime.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalTimeByColumnName() throws SQLException {
+        String columnName = "ignored";
         Time expected = Time.valueOf("04:04:04");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Time getTime(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Time> optionalTime = resultSet.getOptionalTime("ignored");
+        Mockito.when(mockResultSet.getTime(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Time> optionalTime = resultSet.getOptionalTime(columnName);
         assertEquals(expected, optionalTime.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalTimeByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Time> optionalTime = resultSet.getOptionalTime("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Time> optionalTime = resultSet.getOptionalTime(columnName);
         assertFalse(optionalTime.isPresent());
     }
 
