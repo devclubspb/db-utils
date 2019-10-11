@@ -221,51 +221,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalLongByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         long expected = 40_000L;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public long getLong(int columnIndex) {
-                return expected;
-            }
-        });
-        OptionalLong optionalLong = resultSet.getOptionalLong(0);
+        Mockito.when(mockResultSet.getLong(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalLong optionalLong = resultSet.getOptionalLong(columnIndex);
         assertEquals(expected, optionalLong.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalLongByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        OptionalLong optionalLong = resultSet.getOptionalLong(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalLong optionalLong = resultSet.getOptionalLong(columnIndex);
         assertFalse(optionalLong.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalLongByColumnName() throws SQLException {
+        String columnName = "ignored";
         long expected = 40_000L;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public long getLong(String columnName) {
-                return expected;
-            }
-        });
-        OptionalLong optionalLong = resultSet.getOptionalLong("ignored");
+        Mockito.when(mockResultSet.getLong(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalLong optionalLong = resultSet.getOptionalLong(columnName);
         assertEquals(expected, optionalLong.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalLongByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        OptionalLong optionalLong = resultSet.getOptionalLong("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        OptionalLong optionalLong = resultSet.getOptionalLong(columnName);
         assertFalse(optionalLong.isPresent());
     }
 
