@@ -78,6 +78,11 @@
     </repository>
   </distributionManagement>
 
+  <issueManagement>
+    <url>https://github.com/devclubspb/db-utils/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+
   <scm>
     <connection>scm:git:https://github.com/devclubspb/db-utils.git</connection>
     <developerConnection>scm:git:https://github.com/devclubspb/db-utils.git</developerConnection>
