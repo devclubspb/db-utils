@@ -525,51 +525,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalRefByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Ref expected = new MockRef(40_000);
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Ref getRef(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Ref> optionalRef = resultSet.getOptionalRef(0);
+        Mockito.when(mockResultSet.getRef(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Ref> optionalRef = resultSet.getOptionalRef(columnIndex);
         assertEquals(expected, optionalRef.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalRefByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Ref> optionalRef = resultSet.getOptionalRef(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Ref> optionalRef = resultSet.getOptionalRef(columnIndex);
         assertFalse(optionalRef.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalRefByColumnName() throws SQLException {
+        String columnName = "ignored";
         Ref expected = new MockRef(40_000);
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Ref getRef(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Ref> optionalRef = resultSet.getOptionalRef("ignored");
+        Mockito.when(mockResultSet.getRef(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Ref> optionalRef = resultSet.getOptionalRef(columnName);
         assertEquals(expected, optionalRef.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalRefByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Ref> optionalRef = resultSet.getOptionalRef("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Ref> optionalRef = resultSet.getOptionalRef(columnName);
         assertFalse(optionalRef.isPresent());
     }
 
