@@ -4,8 +4,11 @@ import com.mockrunner.mock.jdbc.MockArray;
 import com.mockrunner.mock.jdbc.MockBlob;
 import com.mockrunner.mock.jdbc.MockClob;
 import com.mockrunner.mock.jdbc.MockRef;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -18,11 +21,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class SimpleOptionalResultSetTest {
+    @Mock
+    private ResultSet mockResultSet;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
     @Test
     public void checkExpectedValueFromGetOptionalStringByColumnIndex() throws SQLException {
         int columnIndex = 0;
         String expected = "forty thousand";
-        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
         Mockito.when(mockResultSet.getString(columnIndex)).thenReturn(expected);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
         Optional<String> optionalString = resultSet.getOptionalString(columnIndex);
@@ -32,7 +42,6 @@ public class SimpleOptionalResultSetTest {
     @Test
     public void checkNullFromGetOptionalStringByColumnIndex() throws SQLException {
         int columnIndex = 0;
-        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
         Optional<String> optionalString = resultSet.getOptionalString(columnIndex);
@@ -43,7 +52,6 @@ public class SimpleOptionalResultSetTest {
     public void checkExpectedValueFromGetOptionalStringByColumnName() throws SQLException {
         String columnName = "ignored";
         String expected = "forty thousand";
-        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
         Mockito.when(mockResultSet.getString(columnName)).thenReturn(expected);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
         Optional<String> optionalString = resultSet.getOptionalString(columnName);
@@ -53,7 +61,6 @@ public class SimpleOptionalResultSetTest {
     @Test
     public void checkNullFromGetOptionalStringByColumnName() throws SQLException {
         String columnName = "ignored";
-        ResultSet mockResultSet = Mockito.mock(ResultSet.class);
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
         Optional<String> optionalString = resultSet.getOptionalString(columnName);
