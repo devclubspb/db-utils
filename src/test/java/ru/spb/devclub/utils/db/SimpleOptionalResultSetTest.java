@@ -373,51 +373,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalDateByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Date expected = Date.valueOf("2004-04-04");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Date getDate(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Date> optionalDate = resultSet.getOptionalDate(0);
+        Mockito.when(mockResultSet.getDate(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Date> optionalDate = resultSet.getOptionalDate(columnIndex);
         assertEquals(expected, optionalDate.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalDateByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Date> optionalDate = resultSet.getOptionalDate(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Date> optionalDate = resultSet.getOptionalDate(columnIndex);
         assertFalse(optionalDate.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalDateByColumnName() throws SQLException {
+        String columnName = "ignored";
         Date expected = Date.valueOf("2004-04-04");
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public Date getDate(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Date> optionalDate = resultSet.getOptionalDate("ignored");
+        Mockito.when(mockResultSet.getDate(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Date> optionalDate = resultSet.getOptionalDate(columnName);
         assertEquals(expected, optionalDate.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalDateByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Date> optionalDate = resultSet.getOptionalDate("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Date> optionalDate = resultSet.getOptionalDate(columnName);
         assertFalse(optionalDate.isPresent());
     }
 
