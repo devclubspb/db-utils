@@ -13,6 +13,14 @@
   <description>This library contains utility classes for working with the database.</description>
   <url>https://github.com/devclubspb/db-utils</url>
 
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
