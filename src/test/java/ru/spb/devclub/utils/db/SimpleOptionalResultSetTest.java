@@ -107,51 +107,39 @@ public class SimpleOptionalResultSetTest {
 
     @Test
     public void checkExpectedValueFromGetOptionalByteByColumnIndex() throws SQLException {
+        int columnIndex = 0;
         Byte expected = 40;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public byte getByte(int columnIndex) {
-                return expected;
-            }
-        });
-        Optional<Byte> optionalByte = resultSet.getOptionalByte(0);
+        Mockito.when(mockResultSet.getByte(columnIndex)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Byte> optionalByte = resultSet.getOptionalByte(columnIndex);
         assertEquals(expected, optionalByte.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalByteByColumnIndex() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Byte> optionalByte = resultSet.getOptionalByte(0);
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Byte> optionalByte = resultSet.getOptionalByte(columnIndex);
         assertFalse(optionalByte.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalByteByColumnName() throws SQLException {
+        String columnName = "ignored";
         Byte expected = 40;
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public byte getByte(String columnName) {
-                return expected;
-            }
-        });
-        Optional<Byte> optionalByte = resultSet.getOptionalByte("ignored");
+        Mockito.when(mockResultSet.getByte(columnName)).thenReturn(expected);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Byte> optionalByte = resultSet.getOptionalByte(columnName);
         assertEquals(expected, optionalByte.orElseThrow(IllegalArgumentException::new));
     }
 
     @Test
     public void checkNullFromGetOptionalByteByColumnName() throws SQLException {
-        OptionalResultSet resultSet = ResultSetUtils.optional(new AbstractResultSet() {
-            @Override
-            public boolean wasNull() {
-                return true;
-            }
-        });
-        Optional<Byte> optionalByte = resultSet.getOptionalByte("ignored");
+        String columnName = "ignored";
+        Mockito.when(mockResultSet.wasNull()).thenReturn(true);
+        OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
+        Optional<Byte> optionalByte = resultSet.getOptionalByte(columnName);
         assertFalse(optionalByte.isPresent());
     }
 
