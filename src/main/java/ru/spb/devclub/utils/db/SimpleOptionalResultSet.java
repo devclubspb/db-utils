@@ -10,215 +10,181 @@ import java.util.Optional;
  * @author Grig Alex
  * @version 0.1.0
  * @see ru.spb.devclub.utils.db.OptionalResultSet
- * @see ru.spb.devclub.utils.db.ProxyResultSet
+ * @see ru.spb.devclub.utils.db.SimpleBoxedResultSet
  * @since 0.1.0
  */
-/* package */class SimpleOptionalResultSet extends ProxyResultSet implements OptionalResultSet {
+/* package */class SimpleOptionalResultSet extends SimpleBoxedResultSet implements OptionalResultSet {
     protected SimpleOptionalResultSet(ResultSet resultSet) {
         super(resultSet);
     }
 
     @Override
     public Optional<String> getOptionalString(int columnIndex) throws SQLException {
-        String value = resultSet.getString(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getString(columnIndex));
     }
 
     @Override
     public Optional<String> getOptionalString(String columnName) throws SQLException {
-        String value = resultSet.getString(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getString(columnName));
     }
 
     @Override
     public Optional<Boolean> getOptionalBoolean(int columnIndex) throws SQLException {
-        Boolean value = resultSet.getBoolean(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBooleanOrNull(columnIndex));
     }
 
     @Override
     public Optional<Boolean> getOptionalBoolean(String columnName) throws SQLException {
-        Boolean value = resultSet.getBoolean(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBooleanOrNull(columnName));
     }
 
     @Override
     public Optional<Byte> getOptionalByte(int columnIndex) throws SQLException {
-        Byte value = resultSet.getByte(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getByteOrNull(columnIndex));
     }
 
     @Override
     public Optional<Byte> getOptionalByte(String columnName) throws SQLException {
-        Byte value = resultSet.getByte(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getByteOrNull(columnName));
     }
 
     @Override
     public Optional<Short> getOptionalShort(int columnIndex) throws SQLException {
-        Short value = resultSet.getShort(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getShortOrNull(columnIndex));
     }
 
     @Override
     public Optional<Short> getOptionalShort(String columnName) throws SQLException {
-        Short value = resultSet.getShort(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getShortOrNull(columnName));
     }
 
     @Override
     public Optional<Integer> getOptionalInt(int columnIndex) throws SQLException {
-        int value = resultSet.getInt(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getIntOrNull(columnIndex));
     }
 
     @Override
     public Optional<Integer> getOptionalInt(String columnName) throws SQLException {
-        int value = resultSet.getInt(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getIntOrNull(columnName));
     }
 
     @Override
     public Optional<Long> getOptionalLong(int columnIndex) throws SQLException {
-        long value = resultSet.getLong(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getLongOrNull(columnIndex));
     }
 
     @Override
     public Optional<Long> getOptionalLong(String columnName) throws SQLException {
-        long value = resultSet.getLong(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getLongOrNull(columnName));
     }
 
     @Override
     public Optional<Float> getOptionalFloat(int columnIndex) throws SQLException {
-        Float value = resultSet.getFloat(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getFloatOrNull(columnIndex));
     }
 
     @Override
     public Optional<Float> getOptionalFloat(String columnName) throws SQLException {
-        Float value = resultSet.getFloat(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getFloatOrNull(columnName));
     }
 
     @Override
     public Optional<Double> getOptionalDouble(int columnIndex) throws SQLException {
-        double value = resultSet.getDouble(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getDoubleOrNull(columnIndex));
     }
 
     @Override
     public Optional<Double> getOptionalDouble(String columnName) throws SQLException {
-        double value = resultSet.getDouble(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getDoubleOrNull(columnName));
     }
 
     @Override
     public Optional<byte[]> getOptionalBytes(int columnIndex) throws SQLException {
-        byte[] value = resultSet.getBytes(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBytes(columnIndex));
     }
 
     @Override
     public Optional<byte[]> getOptionalBytes(String columnName) throws SQLException {
-        byte[] value = resultSet.getBytes(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBytes(columnName));
     }
 
     @Override
     public Optional<Date> getOptionalDate(int columnIndex) throws SQLException {
-        Date value = resultSet.getDate(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getDate(columnIndex));
     }
 
     @Override
     public Optional<Date> getOptionalDate(String columnName) throws SQLException {
-        Date value = resultSet.getDate(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getDate(columnName));
     }
 
     @Override
     public Optional<Time> getOptionalTime(int columnIndex) throws SQLException {
-        Time value = resultSet.getTime(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getTime(columnIndex));
     }
 
     @Override
     public Optional<Time> getOptionalTime(String columnName) throws SQLException {
-        Time value = resultSet.getTime(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getTime(columnName));
     }
 
     @Override
     public Optional<Timestamp> getOptionalTimestamp(int columnIndex) throws SQLException {
-        Timestamp value = resultSet.getTimestamp(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getTimestamp(columnIndex));
     }
 
     @Override
     public Optional<Timestamp> getOptionalTimestamp(String columnName) throws SQLException {
-        Timestamp value = resultSet.getTimestamp(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getTimestamp(columnName));
     }
 
     @Override
     public Optional<BigDecimal> getOptionalBigDecimal(int columnIndex) throws SQLException {
-        BigDecimal value = resultSet.getBigDecimal(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBigDecimal(columnIndex));
     }
 
     @Override
     public Optional<BigDecimal> getOptionalBigDecimal(String columnName) throws SQLException {
-        BigDecimal value = resultSet.getBigDecimal(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBigDecimal(columnName));
     }
 
     @Override
     public Optional<Ref> getOptionalRef(int columnIndex) throws SQLException {
-        Ref value = resultSet.getRef(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getRef(columnIndex));
     }
 
     @Override
     public Optional<Ref> getOptionalRef(String columnName) throws SQLException {
-        Ref value = resultSet.getRef(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getRef(columnName));
     }
 
     @Override
     public Optional<Blob> getOptionalBlob(int columnIndex) throws SQLException {
-        Blob value = resultSet.getBlob(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBlob(columnIndex));
     }
 
     @Override
     public Optional<Blob> getOptionalBlob(String columnName) throws SQLException {
-        Blob value = resultSet.getBlob(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getBlob(columnName));
     }
 
     @Override
     public Optional<Clob> getOptionalClob(int columnIndex) throws SQLException {
-        Clob value = resultSet.getClob(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getClob(columnIndex));
     }
 
     @Override
     public Optional<Clob> getOptionalClob(String columnName) throws SQLException {
-        Clob value = resultSet.getClob(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getClob(columnName));
     }
 
     @Override
     public Optional<Array> getOptionalArray(int columnIndex) throws SQLException {
-        Array value = resultSet.getArray(columnIndex);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getArray(columnIndex));
     }
 
     @Override
     public Optional<Array> getOptionalArray(String columnName) throws SQLException {
-        Array value = resultSet.getArray(columnName);
-        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
+        return Optional.ofNullable(getArray(columnName));
     }
 }
