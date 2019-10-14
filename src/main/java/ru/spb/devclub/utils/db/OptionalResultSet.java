@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.Optional;
 
 /**
- * Extends {@link ru.spb.devclub.utils.db.BoxedResultSet} interface, adds methods using {@link java.util.Optional}.
+ * Extends {@link ru.spb.devclub.utils.db.BoxedResultSet} interface, adds {@link java.util.Optional} usage methods.
  *
  * @author Grig Alex
  * @version 0.1.0
