@@ -3,6 +3,14 @@ package ru.spb.devclub.utils.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Extends {@link java.sql.ResultSet} interface, adds boxed types usage methods.
+ *
+ * @author vechis, Grig Alex
+ * @version 0.1.0
+ * @see java.sql.ResultSet
+ * @since 0.1.0
+ */
 public interface BoxedResultSet extends ResultSet {
     Long getLongOrNull(String columnName) throws SQLException;
 
