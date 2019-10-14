@@ -5,15 +5,15 @@ import java.sql.*;
 import java.util.Optional;
 
 /**
- * Extends {@link java.sql.ResultSet} interface, adds methods using {@link java.util.Optional}.
+ * Extends {@link ru.spb.devclub.utils.db.BoxedResultSet} interface, adds methods using {@link java.util.Optional}.
  *
  * @author Grig Alex
  * @version 0.1.0
- * @see java.sql.ResultSet
+ * @see ru.spb.devclub.utils.db.BoxedResultSet
  * @see java.util.Optional
  * @since 0.1.0
  */
-public interface OptionalResultSet extends ResultSet {
+public interface OptionalResultSet extends BoxedResultSet {
     Optional<String> getOptionalString(int columnIndex) throws SQLException;
 
     Optional<String> getOptionalString(String columnName) throws SQLException;
