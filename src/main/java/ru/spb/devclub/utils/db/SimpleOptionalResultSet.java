@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalInt;
 import java.util.OptionalLong;
 
 /**
@@ -70,15 +69,15 @@ import java.util.OptionalLong;
     }
 
     @Override
-    public OptionalInt getOptionalInt(int columnIndex) throws SQLException {
+    public Optional<Integer> getOptionalInt(int columnIndex) throws SQLException {
         int value = resultSet.getInt(columnIndex);
-        return resultSet.wasNull() ? OptionalInt.empty() : OptionalInt.of(value);
+        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
     }
 
     @Override
-    public OptionalInt getOptionalInt(String columnName) throws SQLException {
+    public Optional<Integer> getOptionalInt(String columnName) throws SQLException {
         int value = resultSet.getInt(columnName);
-        return resultSet.wasNull() ? OptionalInt.empty() : OptionalInt.of(value);
+        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
     }
 
     @Override
