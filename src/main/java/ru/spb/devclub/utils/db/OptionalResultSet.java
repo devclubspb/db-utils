@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalLong;
 
 /**
  * Extends {@link java.sql.ResultSet} interface, adds methods using {@link java.util.Optional}.
@@ -39,9 +38,9 @@ public interface OptionalResultSet extends ResultSet {
 
     Optional<Integer> getOptionalInt(String columnName) throws SQLException;
 
-    OptionalLong getOptionalLong(int columnIndex) throws SQLException;
+    Optional<Long> getOptionalLong(int columnIndex) throws SQLException;
 
-    OptionalLong getOptionalLong(String columnName) throws SQLException;
+    Optional<Long> getOptionalLong(String columnName) throws SQLException;
 
     Optional<Float> getOptionalFloat(int columnIndex) throws SQLException;
 

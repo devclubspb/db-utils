@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalLong;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -221,10 +220,10 @@ public class SimpleOptionalResultSetTest {
     @Test
     public void checkExpectedValueFromGetOptionalLongByColumnIndex() throws SQLException {
         int columnIndex = 0;
-        long expected = 40_000L;
+        Long expected = 40_000L;
         Mockito.when(mockResultSet.getLong(columnIndex)).thenReturn(expected);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
-        OptionalLong optionalLong = resultSet.getOptionalLong(columnIndex);
+        Optional<Long> optionalLong = resultSet.getOptionalLong(columnIndex);
         assertEquals(expected, optionalLong.orElseThrow(IllegalArgumentException::new));
     }
 
@@ -233,17 +232,17 @@ public class SimpleOptionalResultSetTest {
         int columnIndex = 0;
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
-        OptionalLong optionalLong = resultSet.getOptionalLong(columnIndex);
+        Optional<Long> optionalLong = resultSet.getOptionalLong(columnIndex);
         assertFalse(optionalLong.isPresent());
     }
 
     @Test
     public void checkExpectedValueFromGetOptionalLongByColumnName() throws SQLException {
         String columnName = "ignored";
-        long expected = 40_000L;
+        Long expected = 40_000L;
         Mockito.when(mockResultSet.getLong(columnName)).thenReturn(expected);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
-        OptionalLong optionalLong = resultSet.getOptionalLong(columnName);
+        Optional<Long> optionalLong = resultSet.getOptionalLong(columnName);
         assertEquals(expected, optionalLong.orElseThrow(IllegalArgumentException::new));
     }
 
@@ -252,7 +251,7 @@ public class SimpleOptionalResultSetTest {
         String columnName = "ignored";
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         OptionalResultSet resultSet = ResultSetUtils.optional(mockResultSet);
-        OptionalLong optionalLong = resultSet.getOptionalLong(columnName);
+        Optional<Long> optionalLong = resultSet.getOptionalLong(columnName);
         assertFalse(optionalLong.isPresent());
     }
 

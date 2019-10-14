@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 import java.util.OptionalDouble;
-import java.util.OptionalLong;
 
 /**
  * The simple implementation of {@link ru.spb.devclub.utils.db.OptionalResultSet}.
@@ -81,15 +80,15 @@ import java.util.OptionalLong;
     }
 
     @Override
-    public OptionalLong getOptionalLong(int columnIndex) throws SQLException {
+    public Optional<Long> getOptionalLong(int columnIndex) throws SQLException {
         long value = resultSet.getLong(columnIndex);
-        return resultSet.wasNull() ? OptionalLong.empty() : OptionalLong.of(value);
+        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
     }
 
     @Override
-    public OptionalLong getOptionalLong(String columnName) throws SQLException {
+    public Optional<Long> getOptionalLong(String columnName) throws SQLException {
         long value = resultSet.getLong(columnName);
-        return resultSet.wasNull() ? OptionalLong.empty() : OptionalLong.of(value);
+        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
     }
 
     @Override
