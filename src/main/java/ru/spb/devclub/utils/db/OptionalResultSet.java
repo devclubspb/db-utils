@@ -11,9 +11,6 @@ import java.util.Optional;
  * @version 0.1.0
  * @see java.sql.ResultSet
  * @see java.util.Optional
- * @see java.util.OptionalDouble
- * @see java.util.OptionalInt
- * @see java.util.OptionalLong
  * @since 0.1.0
  */
 public interface OptionalResultSet extends ResultSet {
