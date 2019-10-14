@@ -67,6 +67,47 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? result : null;
     }
 
+    public static Short getShort(ResultSet rs, String columnName) throws SQLException {
+        short result = rs.getShort(columnName);
+        return !rs.wasNull() ? result : null;
+    }
+
+    public static Short getShort(ResultSet rs, int columnIndex) throws SQLException {
+        short result = rs.getShort(columnIndex);
+        return !rs.wasNull() ? result : null;
+    }
+
+    public static Byte getByte(ResultSet rs, String columnName) throws SQLException {
+        byte result = rs.getByte(columnName);
+        return !rs.wasNull() ? result : null;
+    }
+
+    public static Byte getByte(ResultSet rs, int columnIndex) throws SQLException {
+        byte result = rs.getByte(columnIndex);
+        return !rs.wasNull() ? result : null;
+    }
+
+    public static Double getDouble(ResultSet rs, String columnName) throws SQLException {
+        double result = rs.getDouble(columnName);
+        return !rs.wasNull() ? result : null;
+    }
+
+    public static Double getDouble(ResultSet rs, int columnIndex) throws SQLException {
+        double result = rs.getDouble(columnIndex);
+        return !rs.wasNull() ? result : null;
+    }
+
+
+    public static Float getFloat(ResultSet rs, String columnName) throws SQLException {
+        float result = rs.getFloat(columnName);
+        return !rs.wasNull() ? result : null;
+    }
+
+    public static Float getFloat(ResultSet rs, int columnIndex) throws SQLException {
+        float result = rs.getFloat(columnIndex);
+        return !rs.wasNull() ? result : null;
+    }
+
     public static Timestamp getTimestamp(ResultSet rs, String columnName) throws SQLException {
         Timestamp result = rs.getTimestamp(columnName);
         return !rs.wasNull() ? result : null;

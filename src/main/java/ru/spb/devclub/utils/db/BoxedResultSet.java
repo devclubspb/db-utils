@@ -1,16 +1,9 @@
 package ru.spb.devclub.utils.db;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 
 public interface BoxedResultSet extends ResultSet {
-    <T extends Enum<T>> T getEnumValue(String columnName, T[] enumItems) throws SQLException;
-
-    <T extends Enum<T>> T getEnumValue(int columnIndex, T[] enumItems) throws SQLException;
-
     Long getLongOrNull(String columnName) throws SQLException;
 
     Long getLongOrNull(int columnIndex) throws SQLException;
@@ -23,15 +16,19 @@ public interface BoxedResultSet extends ResultSet {
 
     Boolean getBooleanOrNull(int columnIndex) throws SQLException;
 
-    Timestamp getTimestampOrNull(String columnName) throws SQLException;
+    Short getShortOrNull(String columnName) throws SQLException;
 
-    Timestamp getTimestampOrNull(int columnIndex) throws SQLException;
+    Short getShortOrNull(int columnIndex) throws SQLException;
 
-    Date getDateOrNull(String columnName) throws SQLException;
+    Byte getByteOrNull(String columnName) throws SQLException;
 
-    Date getDateOrNull(int columnIndex) throws SQLException;
+    Byte getByteOrNull(int columnIndex) throws SQLException;
 
-    String getDateStringOrNull(String columnName, DateFormat dateFormat) throws SQLException;
+    Double getDoubleOrNull(String columnName) throws SQLException;
 
-    String getDateStringOrNull(int columnIndex, DateFormat dateFormat) throws SQLException;
+    Double getDoubleOrNull(int columnIndex) throws SQLException;
+
+    Float getFloatOrNull(String columnName) throws SQLException;
+
+    Float getFloatOrNull(int columnIndex) throws SQLException;
 }

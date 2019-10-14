@@ -1,25 +1,12 @@
 package ru.spb.devclub.utils.db;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 
 /* package */class SimpleBoxedResultSet extends ProxyResultSet implements BoxedResultSet {
     @SuppressWarnings("WeakerAccess")
     protected SimpleBoxedResultSet(ResultSet resultSet) {
         super(resultSet);
-    }
-
-    @Override
-    public <T extends Enum<T>> T getEnumValue(String columnName, T[] enumItems) throws SQLException {
-        return ResultSetUtils.getEnumValue(resultSet, columnName, enumItems);
-    }
-
-    @Override
-    public <T extends Enum<T>> T getEnumValue(int columnIndex, T[] enumItems) throws SQLException {
-        return ResultSetUtils.getEnumValue(resultSet, columnIndex, enumItems);
     }
 
     @Override
@@ -53,32 +40,42 @@ import java.text.DateFormat;
     }
 
     @Override
-    public Timestamp getTimestampOrNull(String columnName) throws SQLException {
-        return ResultSetUtils.getTimestamp(resultSet, columnName);
+    public Short getShortOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getShort(resultSet, columnName);
     }
 
     @Override
-    public Timestamp getTimestampOrNull(int columnIndex) throws SQLException {
-        return ResultSetUtils.getTimestamp(resultSet, columnIndex);
+    public Short getShortOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getShort(resultSet, columnIndex);
     }
 
     @Override
-    public Date getDateOrNull(String columnName) throws SQLException {
-        return ResultSetUtils.getDate(resultSet, columnName);
+    public Byte getByteOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getByte(resultSet, columnName);
     }
 
     @Override
-    public Date getDateOrNull(int columnIndex) throws SQLException {
-        return ResultSetUtils.getDate(resultSet, columnIndex);
+    public Byte getByteOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getByte(resultSet, columnIndex);
     }
 
     @Override
-    public String getDateStringOrNull(String columnName, DateFormat dateFormat) throws SQLException {
-        return ResultSetUtils.getDateString(resultSet, columnName, dateFormat);
+    public Double getDoubleOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getDouble(resultSet, columnName);
     }
 
     @Override
-    public String getDateStringOrNull(int columnIndex, DateFormat dateFormat) throws SQLException {
-        return ResultSetUtils.getDateString(resultSet, columnIndex, dateFormat);
+    public Double getDoubleOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getDouble(resultSet, columnIndex);
+    }
+
+    @Override
+    public Float getFloatOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getFloat(resultSet, columnName);
+    }
+
+    @Override
+    public Float getFloatOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getFloat(resultSet, columnIndex);
     }
 }
