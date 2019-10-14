@@ -3,7 +3,6 @@ package ru.spb.devclub.utils.db;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 /**
  * The simple implementation of {@link ru.spb.devclub.utils.db.OptionalResultSet}.
@@ -104,15 +103,15 @@ import java.util.OptionalDouble;
     }
 
     @Override
-    public OptionalDouble getOptionalDouble(int columnIndex) throws SQLException {
+    public Optional<Double> getOptionalDouble(int columnIndex) throws SQLException {
         double value = resultSet.getDouble(columnIndex);
-        return resultSet.wasNull() ? OptionalDouble.empty() : OptionalDouble.of(value);
+        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
     }
 
     @Override
-    public OptionalDouble getOptionalDouble(String columnName) throws SQLException {
+    public Optional<Double> getOptionalDouble(String columnName) throws SQLException {
         double value = resultSet.getDouble(columnName);
-        return resultSet.wasNull() ? OptionalDouble.empty() : OptionalDouble.of(value);
+        return resultSet.wasNull() ? Optional.empty() : Optional.of(value);
     }
 
     @Override

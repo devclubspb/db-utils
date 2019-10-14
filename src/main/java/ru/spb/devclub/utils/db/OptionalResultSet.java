@@ -3,7 +3,6 @@ package ru.spb.devclub.utils.db;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 /**
  * Extends {@link java.sql.ResultSet} interface, adds methods using {@link java.util.Optional}.
@@ -46,9 +45,9 @@ public interface OptionalResultSet extends ResultSet {
 
     Optional<Float> getOptionalFloat(String columnName) throws SQLException;
 
-    OptionalDouble getOptionalDouble(int columnIndex) throws SQLException;
+    Optional<Double> getOptionalDouble(int columnIndex) throws SQLException;
 
-    OptionalDouble getOptionalDouble(String columnName) throws SQLException;
+    Optional<Double> getOptionalDouble(String columnName) throws SQLException;
 
     Optional<byte[]> getOptionalBytes(int columnIndex) throws SQLException;
 
