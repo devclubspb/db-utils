@@ -3,6 +3,15 @@ package ru.spb.devclub.utils.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * The simple implementation of {@link ru.spb.devclub.utils.db.BoxedResultSet}.
+ *
+ * @author vechis, Grig Alex
+ * @version 0.1.0
+ * @see ru.spb.devclub.utils.db.BoxedResultSet
+ * @see ru.spb.devclub.utils.db.ProxyResultSet
+ * @since 0.1.0
+ */
 /* package */class SimpleBoxedResultSet extends ProxyResultSet implements BoxedResultSet {
     @SuppressWarnings("WeakerAccess")
     protected SimpleBoxedResultSet(ResultSet resultSet) {
