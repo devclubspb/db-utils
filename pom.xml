@@ -21,6 +21,11 @@
     </license>
   </licenses>
 
+  <organization>
+    <name>Devclubspb</name>
+    <url>https://github.com/devclubspb</url>
+  </organization>
+
   <developers>
     <developer>
       <id>alexengrig</id>
