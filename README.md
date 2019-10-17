@@ -3,3 +3,7 @@
 [![Build Status](https://travis-ci.com/devclubspb/db-utils.svg?branch=master)](https://travis-ci.com/devclubspb/db-utils)[![Codacy Badge](https://api.codacy.com/project/badge/Grade/cf3eeffef5864b09aa9f29ca7c4cd8b9)](https://www.codacy.com/manual/alexengrig/db-utils?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=devclubspb/db-utils&amp;utm_campaign=Badge_Grade)
 
 Database utilities.
+
+## License
+
+This project is [licensed](LICENSE) under [MIT License](https://opensource.org/licenses/MIT).
