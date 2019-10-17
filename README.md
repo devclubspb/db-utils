@@ -4,6 +4,36 @@
 
 Database utilities.
 
+## Installation
+
+Releases are available in [Maven Central](https://repo1.maven.org/maven2/ru/spb/devclub/utils/db-utils/).
+
+List of version [changes](CHANGES.md).
+
+### Maven
+
+Add this snippet to the pom.xml `dependencies` section:
+
+```xml
+<dependency>
+  <groupId>ru.spb.devclub.utils</groupId>
+  <artifactId>db-utils</artifactId>
+  <version>0.1.0</version>
+</dependency>
+```
+
+### Gradle
+
+Add this snippet to the build.gradle `dependencies` section:
+
+```groovy
+implementation 'ru.spb.devclub.utils:db-utils:0.1.0'
+```
+
+### Others
+
+Others snippets are available in [The Central Repository](https://search.maven.org/artifact/ru.spb.devclub.utils/db-utils/0.1.0/jar).
+
 ## License
 
 This project is [licensed](LICENSE) under [MIT License](https://opensource.org/licenses/MIT).
