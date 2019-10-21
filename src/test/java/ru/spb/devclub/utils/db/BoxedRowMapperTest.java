@@ -34,14 +34,14 @@ public class BoxedRowMapperTest {
     }
 
     public static class EntityRowMapper implements BoxedRowMapper<Entity> {
-        public static String ID_COLUMN_NAME = "ID";
-        public static String NAME_COLUMN_NAME = "NAME";
+        static String ID_COLUMN_NAME = "ID";
+        static String NAME_COLUMN_NAME = "NAME";
 
         @Override
-        public Entity mapRow(BoxedResultSet resultSet, int i) throws SQLException {
+        public Entity mapRow(BoxedResultSet rs, int rowNum) throws SQLException {
             Entity entity = new Entity();
-            entity.setId(resultSet.getIntOrNull(ID_COLUMN_NAME));
-            entity.setName(resultSet.getString(NAME_COLUMN_NAME));
+            entity.setId(rs.getIntOrNull(ID_COLUMN_NAME));
+            entity.setName(rs.getString(NAME_COLUMN_NAME));
             return entity;
         }
     }
