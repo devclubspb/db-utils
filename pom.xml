@@ -40,6 +40,13 @@
       </roles>
       <name>vechis</name>
     </developer>
+    <developer>
+      <id>avetall87</id>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <name>avetall87@gmail.com</name>
+    </developer>
   </developers>
 
   <properties>

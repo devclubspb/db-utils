@@ -34,14 +34,14 @@ public class OptionalRowMapperTest {
     }
 
     public static class EntityRowMapper implements OptionalRowMapper<Entity> {
-        public static String ID_COLUMN_NAME = "ID";
-        public static String NAME_COLUMN_NAME = "NAME";
+        static String ID_COLUMN_NAME = "ID";
+        static String NAME_COLUMN_NAME = "NAME";
 
         @Override
-        public Entity mapRow(OptionalResultSet resultSet, int i) throws SQLException {
+        public Entity mapRow(OptionalResultSet rs, int rowNum) throws SQLException {
             Entity entity = new Entity();
-            entity.setId(resultSet.getOptionalInt(ID_COLUMN_NAME).orElseThrow(SQLException::new));
-            entity.setName(resultSet.getOptionalString(NAME_COLUMN_NAME).orElse("none"));
+            entity.setId(rs.getOptionalInt(ID_COLUMN_NAME).orElseThrow(SQLException::new));
+            entity.setName(rs.getOptionalString(NAME_COLUMN_NAME).orElse("none"));
             return entity;
         }
     }

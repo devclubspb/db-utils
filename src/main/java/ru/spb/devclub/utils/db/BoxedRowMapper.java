@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public interface BoxedRowMapper<T> extends ExtendedRowMapper<T, BoxedResultSet> {
     @Override
-    default T mapRow(ResultSet resultSet, int i) throws SQLException {
-        return mapRow(ResultSetUtils.boxed(resultSet), i);
+    default T mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return mapRow(ResultSetUtils.boxed(rs), rowNum);
     }
 }

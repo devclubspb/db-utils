@@ -14,5 +14,5 @@ import java.sql.SQLException;
  * @since 0.1.0
  */
 public interface ExtendedRowMapper<T, R extends ExtendedResultSet> extends RowMapper<T> {
-    T mapRow(R resultSet, int i) throws SQLException;
+    T mapRow(R rs, int rowNum) throws SQLException;
 }

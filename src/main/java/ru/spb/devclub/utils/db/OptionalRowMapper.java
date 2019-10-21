@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public interface OptionalRowMapper<T> extends ExtendedRowMapper<T, OptionalResultSet> {
     @Override
-    default T mapRow(ResultSet resultSet, int i) throws SQLException {
-        return mapRow(ResultSetUtils.optional(resultSet), i);
+    default T mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return mapRow(ResultSetUtils.optional(rs), rowNum);
     }
 }
