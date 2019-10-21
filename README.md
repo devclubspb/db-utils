@@ -41,7 +41,7 @@ Others snippets are available in [The Central Repository](https://search.maven.o
 #### BoxedResultSet
 
 The `java.sql.ResultSet` returns the default value for primitive types if the value is SQL `NULL`.
-BoxedResultSet adds boxed primitive types usage methods.
+_BoxedResultSet_ adds boxed primitive types usage methods.
 
 ```java
 void example(BoxedResultSet rs) {
@@ -64,7 +64,7 @@ void example(BoxedResultSet rs) {
 
 #### OptionalResultSet
 
-OptionalResultSet adds `java.util.Optional` usage methods.
+_OptionalResultSet_ adds `java.util.Optional` usage methods.
 
 ```java
 void example(OptionalResultSet rs){
@@ -86,6 +86,46 @@ void example(OptionalResultSet rs){
 ```
 
 Also for the following types: `byte[], BigDecimal, Date, Time, Timestamp, Ref, Blob, Clob, Array`.
+
+### Extended RowMapper
+
+The `org.springframework.jdbc.core.RowMapper` provides the `mapRow(rs:ResultSet, rowNum:int)` method.
+
+#### BoxedRowMapper
+
+_BoxedRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _BoxedResultSet_.
+
+```java
+import java.sql.SQLException;
+
+import ru.spb.devclub.utils.db.BoxedResultSet;
+import ru.spb.devclub.utils.db.BoxedRowMapper;
+
+public class ShortRowMapper implements BoxedRowMapper<Short> {
+    @Override
+    public Short mapRow(BoxedResultSet rs, int rowNum) throws SQLException {
+        return rs.getShortOrNull(0);
+    }
+}
+```
+
+#### OptionalRowMapper
+
+_OptionalRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _OptionalResultSet_.
+
+```java
+import java.sql.SQLException;
+
+import ru.spb.devclub.utils.db.OptionalResultSet;
+import ru.spb.devclub.utils.db.OptionalRowMapper;
+
+public class FloatRowMapper implements OptionalRowMapper<Float> {
+    @Override
+    public Float mapRow(OptionalResultSet rs, int rowNum) throws SQLException {
+        return rs.getOptionalFloat(0).orElse(-1.0f);
+    }
+}
+```
 
 ## License
 
