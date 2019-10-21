@@ -34,6 +34,34 @@ implementation 'ru.spb.devclub.utils:db-utils:0.1.0'
 
 Others snippets are available in [The Central Repository](https://search.maven.org/artifact/ru.spb.devclub.utils/db-utils/0.1.0/jar).
 
+## Usage
+
+### Extended ResultSet
+
+#### BoxedResultSet
+
+The `java.sql.ResultSet` returns the default value for primitive types if the value is SQL `NULL`.
+BoxedResultSet adds boxed primitive types usage methods.
+
+```java
+void example(BoxedResultSet rs) {
+    Boolean booleanValue = rs.getBooleanOrNull(0);
+    booleanValue = rs.getBooleanOrNull("zero");
+    Byte byteValue = rs.getByteOrNull(1);
+    byteValue = rs.getByteOrNull("one");
+    Short shortValue = rs.getShortOrNull(2);
+    shortValue = rs.getShortOrNull("two");
+    Integer intValue = rs.getIntOrNull(3);
+    intValue = rs.getIntOrNull("three");
+    Long longValue = rs.getLongOrNull(4);
+    longValue = rs.getLongOrNull("four");
+    Float floatValue = rs.getFloatOrNull(5);
+    floatValue = rs.getFloatOrNull("five");
+    Double doubleValue = rs.getDoubleOrNull(6);
+    doubleValue = rs.getDoubleOrNull("six");
+}
+```
+
 ## License
 
 This project is [licensed](LICENSE) under [MIT License](https://opensource.org/licenses/MIT).
