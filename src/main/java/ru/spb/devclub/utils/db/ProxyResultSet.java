@@ -8,7 +8,6 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.Map;
 
-/* package */
 abstract class ProxyResultSet implements ResultSet {
     @SuppressWarnings("WeakerAccess")
     protected final ResultSet resultSet;
