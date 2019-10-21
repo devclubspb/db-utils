@@ -62,6 +62,31 @@ void example(BoxedResultSet rs) {
 }
 ```
 
+#### OptionalResultSet
+
+OptionalResultSet adds `java.util.Optional` usage methods.
+
+```java
+void example(OptionalResultSet rs){
+    Optional<Boolean> booleanOptional = rs.getOptionalBoolean(0);
+    booleanOptional = rs.getOptionalBoolean("zero");
+    Optional<Byte> byteOptional = rs.getOptionalByte(1);
+    byteOptional = rs.getOptionalByte("one");
+    Optional<Short> shortOptional = rs.getOptionalShort(2);
+    shortOptional = rs.getOptionalShort("two");
+    Optional<Integer> intOptional = rs.getOptionalInt(3);
+    intOptional = rs.getOptionalInt("three");
+    Optional<Long> longOptional = rs.getOptionalLong(4);
+    longOptional = rs.getOptionalLong("four");
+    Optional<Float> floatOptional = rs.getOptionalFloat(5);
+    floatOptional = rs.getOptionalFloat("five");
+    Optional<Double> doubleOptional = rs.getOptionalDouble(6);
+    doubleOptional = rs.getOptionalDouble("six");
+}
+```
+
+Also for the following types: `byte[], BigDecimal, Date, Time, Timestamp, Ref, Blob, Clob, Array`.
+
 ## License
 
 This project is [licensed](LICENSE) under [MIT License](https://opensource.org/licenses/MIT).
