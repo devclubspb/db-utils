@@ -178,4 +178,45 @@ public class AwareRowMapperTest {
         ComplexEntity actual = rowMapper.mapRow(mockResultSet, 0);
         assertEquals(expected, actual);
     }
+
+    @Test(expected = AwareRowMapperException.class)
+    public void checkInstanceCreateException() throws SQLException {
+        new AwareRowMapper<>(EntityWithoutDefaultConstructor.class).mapRow(null, 0);
+    }
+
+    @Test(expected = AwareRowMapperException.class)
+    public void checkMethodGetException() throws SQLException {
+        new AwareRowMapper<>(EntityWithoutSetterMethod.class).mapRow(null, 0);
+    }
+
+    @Test(expected = AwareRowMapperException.class)
+    public void checkMethodInvokeException() throws SQLException {
+        new AwareRowMapper<>(EntityWithThrowableSetterMethod.class).mapRow(mockResultSet, 0);
+    }
+
+    static class EntityWithoutDefaultConstructor {
+        public EntityWithoutDefaultConstructor(@SuppressWarnings("unused") String ignored) {
+        }
+    }
+
+    static class EntityWithoutSetterMethod {
+        @SuppressWarnings("unused")
+        private String ignored;
+
+        public EntityWithoutSetterMethod() {
+        }
+    }
+
+    static class EntityWithThrowableSetterMethod {
+        @SuppressWarnings("unused")
+        private String ignored;
+
+        public EntityWithThrowableSetterMethod() {
+        }
+
+        @SuppressWarnings("unused")
+        public void setIgnored(@SuppressWarnings("unused") String ignored) throws IllegalAccessException {
+            throw new IllegalAccessException();
+        }
+    }
 }
