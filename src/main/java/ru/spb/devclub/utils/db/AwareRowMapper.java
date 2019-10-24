@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,67 +27,68 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
 
     @Override
     public T mapRow(BoxedResultSet rs, int rowNum) throws SQLException {
-        try {
-            T result = getResultInstance();
-            Field[] fields = getFields();
-            for (Field field : fields) {
-                String columnName = getColumnName(field);
-                Method method = getMethod(field);
-                Class<?> fieldType = getFieldType(field);
-                if (fieldType.isPrimitive()) {
-                    if (int.class.equals(fieldType)) {
-                        method.invoke(result, rs.getInt(columnName));
-                    } else if (long.class.equals(fieldType)) {
-                        method.invoke(result, rs.getLong(columnName));
-                    } else if (double.class.equals(fieldType)) {
-                        method.invoke(result, rs.getDouble(columnName));
-                    } else if (boolean.class.equals(fieldType)) {
-                        method.invoke(result, rs.getBoolean(columnName));
-                    } else if (float.class.equals(fieldType)) {
-                        method.invoke(result, rs.getFloat(columnName));
-                    } else if (short.class.equals(fieldType)) {
-                        method.invoke(result, rs.getShort(columnName));
-                    } else if (byte.class.equals(fieldType)) {
-                        method.invoke(result, rs.getByte(columnName));
-                    } else if (char.class.equals(fieldType)) {
-                        String value = rs.getString(columnName);
-                        if (value != null) {
-                            method.invoke(result, value.charAt(0));
-                        }
+        T result = getResultInstance();
+        Field[] fields = getFields();
+        for (Field field : fields) {
+            String columnName = getColumnName(field);
+            Method method = getMethod(field);
+            Class<?> fieldType = getFieldType(field);
+            if (fieldType.isPrimitive()) {
+                if (int.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getInt(columnName));
+                } else if (long.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getLong(columnName));
+                } else if (double.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getDouble(columnName));
+                } else if (boolean.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getBoolean(columnName));
+                } else if (float.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getFloat(columnName));
+                } else if (short.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getShort(columnName));
+                } else if (byte.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getByte(columnName));
+                } else if (char.class.equals(fieldType)) {
+                    String value = rs.getString(columnName);
+                    if (value != null) {
+                        invokeMethod(method, result, value.charAt(0));
                     }
+                }
+            } else {
+                if (String.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getString(columnName));
+                } else if (Integer.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getIntOrNull(columnName));
+                } else if (Long.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getLongOrNull(columnName));
+                } else if (Double.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getDoubleOrNull(columnName));
+                } else if (Boolean.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getBooleanOrNull(columnName));
+                } else if (Float.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getFloatOrNull(columnName));
+                } else if (Short.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getShortOrNull(columnName));
+                } else if (Byte.class.equals(fieldType)) {
+                    invokeMethod(method, result, rs.getByteOrNull(columnName));
                 } else {
-                    if (String.class.equals(fieldType)) {
-                        method.invoke(result, rs.getString(columnName));
-                    } else if (Integer.class.equals(fieldType)) {
-                        method.invoke(result, rs.getIntOrNull(columnName));
-                    } else if (Long.class.equals(fieldType)) {
-                        method.invoke(result, rs.getLongOrNull(columnName));
-                    } else if (Double.class.equals(fieldType)) {
-                        method.invoke(result, rs.getDoubleOrNull(columnName));
-                    } else if (Boolean.class.equals(fieldType)) {
-                        method.invoke(result, rs.getBooleanOrNull(columnName));
-                    } else if (Float.class.equals(fieldType)) {
-                        method.invoke(result, rs.getFloatOrNull(columnName));
-                    } else if (Short.class.equals(fieldType)) {
-                        method.invoke(result, rs.getShortOrNull(columnName));
-                    } else if (Byte.class.equals(fieldType)) {
-                        method.invoke(result, rs.getByteOrNull(columnName));
-                    } else {
-                        AwareRowMapper<?> awareRowMapper = mappers.get(fieldType);
-                        if (awareRowMapper != null) {
-                            method.invoke(result, awareRowMapper.mapRow(rs, rowNum));
-                        }
+                    AwareRowMapper<?> awareRowMapper = mappers.get(fieldType);
+                    if (awareRowMapper != null) {
+                        invokeMethod(method, result, awareRowMapper.mapRow(rs, rowNum));
                     }
                 }
             }
-            return result;
-        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            throw new SQLException(e);
         }
+        return result;
     }
 
-    protected T getResultInstance() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        return clazz.getConstructor().newInstance();
+    protected T getResultInstance() throws AwareRowMapperException {
+        try {
+            return clazz.getConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new AwareRowMapperException("Exception to create a new instance of the class: \"" +
+                    clazz.getName() + "\".", e);
+        }
     }
 
     protected Field[] getFields() {
@@ -106,8 +108,16 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
         return builder.toString();
     }
 
-    protected Method getMethod(Field field) throws NoSuchMethodException {
-        return clazz.getMethod(getMethodName(field), getFieldType(field));
+    protected Method getMethod(Field field) throws AwareRowMapperException {
+        try {
+            return clazz.getMethod(getMethodName(field), getFieldType(field));
+        } catch (NoSuchMethodException e) {
+            throw new AwareRowMapperException("Exception to get a method of the class: \"" +
+                    clazz.getName() + "\", for the field: \" +" +
+                    field + "\", by the method name: \"" +
+                    getMethodName(field) + "\" and the type: \"" +
+                    getFieldType(field).getName() + "\".", e);
+        }
     }
 
     protected String getMethodName(Field field) {
@@ -117,6 +127,17 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
 
     protected Class<?> getFieldType(Field field) {
         return field.getType();
+    }
+
+    protected void invokeMethod(Method method, T result, Object... values) throws AwareRowMapperException {
+        try {
+            method.invoke(result, values);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new AwareRowMapperException("Exception to invoke the method: \"" +
+                    method + "\", for the result: \"" +
+                    result + "\", with values: \"" +
+                    Arrays.toString(values) + "\".", e);
+        }
     }
 
     public AwareRowMapper<T> prefix(String prefix) {
