@@ -125,11 +125,12 @@ public class AwareRowMapperTest {
         int count = 1;
         boolean completed = true;
         Boolean checked = true;
-        Mockito.when(mockResultSet.getLong("ID")).thenReturn(id);
-        Mockito.when(mockResultSet.getString("NAME")).thenReturn(name);
-        Mockito.when(mockResultSet.getInt("COUNT")).thenReturn(count);
-        Mockito.when(mockResultSet.getBoolean("COMPLETED")).thenReturn(completed);
-        Mockito.when(mockResultSet.getBoolean("CHECKED")).thenReturn(checked);
+        String complexPrefix = "COMPLEX";
+        Mockito.when(mockResultSet.getLong(complexPrefix + "." + "ID")).thenReturn(id);
+        Mockito.when(mockResultSet.getString(complexPrefix + "." + "NAME")).thenReturn(name);
+        Mockito.when(mockResultSet.getInt(complexPrefix + "." + "COUNT")).thenReturn(count);
+        Mockito.when(mockResultSet.getBoolean(complexPrefix + "." + "COMPLETED")).thenReturn(completed);
+        Mockito.when(mockResultSet.getBoolean(complexPrefix + "." + "CHECKED")).thenReturn(checked);
         int i = 14;
         long l = 15L;
         double d = 15.5D;
@@ -138,14 +139,15 @@ public class AwareRowMapperTest {
         short s = 17;
         byte b = 18;
         char c = 'x';
-        Mockito.when(mockResultSet.getInt("INT_FIELD")).thenReturn(i);
-        Mockito.when(mockResultSet.getLong("LONG_FIELD")).thenReturn(l);
-        Mockito.when(mockResultSet.getDouble("DOUBLE_FIELD")).thenReturn(d);
-        Mockito.when(mockResultSet.getBoolean("BOOLEAN_FIELD")).thenReturn(bool);
-        Mockito.when(mockResultSet.getFloat("FLOAT_FIELD")).thenReturn(f);
-        Mockito.when(mockResultSet.getShort("SHORT_FIELD")).thenReturn(s);
-        Mockito.when(mockResultSet.getByte("BYTE_FIELD")).thenReturn(b);
-        Mockito.when(mockResultSet.getString("CHAR_FIELD")).thenReturn(c + "bc");
+        String primitivePrefix = "PRIMITIVE";
+        Mockito.when(mockResultSet.getInt(primitivePrefix + "." + "INT_FIELD")).thenReturn(i);
+        Mockito.when(mockResultSet.getLong(primitivePrefix + "." + "LONG_FIELD")).thenReturn(l);
+        Mockito.when(mockResultSet.getDouble(primitivePrefix + "." + "DOUBLE_FIELD")).thenReturn(d);
+        Mockito.when(mockResultSet.getBoolean(primitivePrefix + "." + "BOOLEAN_FIELD")).thenReturn(bool);
+        Mockito.when(mockResultSet.getFloat(primitivePrefix + "." + "FLOAT_FIELD")).thenReturn(f);
+        Mockito.when(mockResultSet.getShort(primitivePrefix + "." + "SHORT_FIELD")).thenReturn(s);
+        Mockito.when(mockResultSet.getByte(primitivePrefix + "." + "BYTE_FIELD")).thenReturn(b);
+        Mockito.when(mockResultSet.getString(primitivePrefix + "." + "CHAR_FIELD")).thenReturn(c + "bc");
         Integer iValue = 4;
         Long lValue = 5L;
         Double dValue = 5.5D;
@@ -153,22 +155,26 @@ public class AwareRowMapperTest {
         Float fValue = 6.6F;
         Short sValue = 7;
         Byte byteValue = 8;
-        Mockito.when(mockResultSet.getInt("BOXED_INT_FIELD")).thenReturn(iValue);
-        Mockito.when(mockResultSet.getLong("BOXED_LONG_FIELD")).thenReturn(lValue);
-        Mockito.when(mockResultSet.getDouble("BOXED_DOUBLE_FIELD")).thenReturn(dValue);
-        Mockito.when(mockResultSet.getBoolean("BOXED_BOOLEAN_FIELD")).thenReturn(boolValue);
-        Mockito.when(mockResultSet.getFloat("BOXED_FLOAT_FIELD")).thenReturn(fValue);
-        Mockito.when(mockResultSet.getShort("BOXED_SHORT_FIELD")).thenReturn(sValue);
-        Mockito.when(mockResultSet.getByte("BOXED_BYTE_FIELD")).thenReturn(byteValue);
+        String boxedPrefix = "BOXED";
+        Mockito.when(mockResultSet.getInt(boxedPrefix + "." + "BOXED_INT_FIELD")).thenReturn(iValue);
+        Mockito.when(mockResultSet.getLong(boxedPrefix + "." + "BOXED_LONG_FIELD")).thenReturn(lValue);
+        Mockito.when(mockResultSet.getDouble(boxedPrefix + "." + "BOXED_DOUBLE_FIELD")).thenReturn(dValue);
+        Mockito.when(mockResultSet.getBoolean(boxedPrefix + "." + "BOXED_BOOLEAN_FIELD")).thenReturn(boolValue);
+        Mockito.when(mockResultSet.getFloat(boxedPrefix + "." + "BOXED_FLOAT_FIELD")).thenReturn(fValue);
+        Mockito.when(mockResultSet.getShort(boxedPrefix + "." + "BOXED_SHORT_FIELD")).thenReturn(sValue);
+        Mockito.when(mockResultSet.getByte(boxedPrefix + "." + "BOXED_BYTE_FIELD")).thenReturn(byteValue);
         PrimitiveEntity primitiveChild = new PrimitiveEntity(i, l, d, bool, f, s, b, c);
         BoxedEntity boxedChild = new BoxedEntity(iValue, lValue, dValue, boolValue, fValue, sValue, byteValue);
         ComplexEntity expected = new ComplexEntity(id, name, count, completed, checked, primitiveChild, boxedChild);
-        AwareRowMapper<PrimitiveEntity> primitiveRowMapper = new AwareRowMapper<>(PrimitiveEntity.class);
-        AwareRowMapper<BoxedEntity> boxedRowMapper = new AwareRowMapper<>(BoxedEntity.class);
+        AwareRowMapper<PrimitiveEntity> primitiveRowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .prefix(primitivePrefix);
+        AwareRowMapper<BoxedEntity> boxedRowMapper = new AwareRowMapper<>(BoxedEntity.class)
+                .prefix(boxedPrefix);
         Map<Class<?>, AwareRowMapper<?>> mappers = new HashMap<>();
         mappers.put(PrimitiveEntity.class, primitiveRowMapper);
         mappers.put(BoxedEntity.class, boxedRowMapper);
-        AwareRowMapper<ComplexEntity> rowMapper = new AwareRowMapper<>(ComplexEntity.class, mappers);
+        AwareRowMapper<ComplexEntity> rowMapper = new AwareRowMapper<>(ComplexEntity.class, mappers)
+                .prefix(complexPrefix);
         ComplexEntity actual = rowMapper.mapRow(mockResultSet, 0);
         assertEquals(expected, actual);
     }

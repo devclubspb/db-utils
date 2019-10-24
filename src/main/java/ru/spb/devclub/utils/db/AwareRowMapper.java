@@ -20,6 +20,10 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
         this.mappers = mappers;
     }
 
+    protected AwareRowMapper(AwareRowMapper<T> other) {
+        this(other.clazz, other.mappers);
+    }
+
     @Override
     public T mapRow(BoxedResultSet rs, int rowNum) throws SQLException {
         try {
@@ -113,5 +117,14 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
 
     protected Class<?> getFieldType(Field field) {
         return field.getType();
+    }
+
+    public AwareRowMapper<T> prefix(String prefix) {
+        return new AwareRowMapper<T>(this) {
+            @Override
+            protected String getColumnName(Field field) {
+                return prefix + "." + super.getColumnName(field);
+            }
+        };
     }
 }
