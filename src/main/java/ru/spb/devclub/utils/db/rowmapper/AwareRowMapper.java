@@ -10,10 +10,12 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     protected final Class<T> clazz;
     protected final Map<Class<?>, AwareRowMapper<?>> mappers;
+    protected final Map<String, String> fieldToColumn;
 
     public AwareRowMapper(Class<T> clazz) {
         this(clazz, new HashMap<>());
@@ -22,10 +24,13 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     public AwareRowMapper(Class<T> clazz, Map<Class<?>, AwareRowMapper<?>> mappers) {
         this.clazz = clazz;
         this.mappers = mappers;
+        fieldToColumn = new HashMap<>();
     }
 
     protected AwareRowMapper(AwareRowMapper<T> other) {
-        this(other.clazz, other.mappers);
+        this.clazz = other.clazz;
+        this.mappers = new HashMap<>(other.mappers);
+        this.fieldToColumn = new HashMap<>(other.fieldToColumn);
     }
 
     @Override
@@ -99,6 +104,9 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     }
 
     protected String getColumnNameByFieldName(String fieldName) {
+        if (fieldToColumn.containsKey(fieldName)) {
+            return fieldToColumn.get(fieldName);
+        }
         StringBuilder builder = new StringBuilder();
         for (char ch : fieldName.toCharArray()) {
             if (Character.isUpperCase(ch)) {
@@ -149,5 +157,19 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
                 return prefix + "." + super.getColumnNameByFieldName(fieldName);
             }
         };
+    }
+
+    public AwareRowMapper<T> fieldToColumn(String fieldName, String columnName) throws AwareRowMapperException {
+        Objects.requireNonNull(fieldName);
+        Objects.requireNonNull(columnName);
+        boolean hasFieldName = Arrays.stream(getFields()).map(Field::getName).anyMatch(fieldName::equals);
+        if (hasFieldName) {
+            AwareRowMapper<T> other = new AwareRowMapper<>(this);
+            other.fieldToColumn.put(fieldName, columnName);
+            return other;
+        } else
+            throw new AwareRowMapperException("Class \"" +
+                    clazz.getName() + "\" doesn't have a \"" +
+                    fieldName + "\" field.");
     }
 }

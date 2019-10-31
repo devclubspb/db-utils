@@ -194,6 +194,41 @@ public class AwareRowMapperTest {
         new AwareRowMapper<>(EntityWithThrowableSetterMethod.class).mapRow(mockResultSet, 0);
     }
 
+    @Test
+    public void should_map_valueWithCustomFieldName() throws SQLException {
+        String columnName = "INTEGER_FIELD";
+        PrimitiveEntity expected = new PrimitiveEntity();
+        expected.setIntField(Integer.MAX_VALUE);
+        Mockito.when(mockResultSet.getInt(columnName)).thenReturn(Integer.MAX_VALUE);
+        AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .fieldToColumn("intField", columnName);
+        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void should_map_valueWithCustomFieldNames() throws SQLException {
+        int intValue = 40_000;
+        char charValue = 'r';
+        PrimitiveEntity expected = new PrimitiveEntity();
+        expected.setIntField(intValue);
+        expected.setCharField(charValue);
+        String columnName1 = "INTEGER_FIELD";
+        String columnName2 = "CHARACTER_FIELD";
+        Mockito.when(mockResultSet.getInt(columnName1)).thenReturn(intValue);
+        Mockito.when(mockResultSet.getString(columnName2)).thenReturn(charValue + "ignored");
+        AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .fieldToColumn("intField", columnName1)
+                .fieldToColumn("charField", columnName2);
+        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = AwareRowMapperException.class)
+    public void should_throw_exceptionAboutNoFieldInClass() throws SQLException {
+        new AwareRowMapper<>(PrimitiveEntity.class).fieldToColumn("fakeField", "FAKE_FIELD");
+    }
+
     static class EntityWithoutDefaultConstructor {
         public EntityWithoutDefaultConstructor(@SuppressWarnings("unused") String ignored) {
         }
