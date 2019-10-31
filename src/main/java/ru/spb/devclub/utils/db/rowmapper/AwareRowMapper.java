@@ -1,4 +1,7 @@
-package ru.spb.devclub.utils.db;
+package ru.spb.devclub.utils.db.rowmapper;
+
+import ru.spb.devclub.utils.db.BoxedResultSet;
+import ru.spb.devclub.utils.db.BoxedRowMapper;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

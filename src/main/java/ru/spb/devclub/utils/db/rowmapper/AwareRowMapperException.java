@@ -1,4 +1,4 @@
-package ru.spb.devclub.utils.db;
+package ru.spb.devclub.utils.db.rowmapper;
 
 import java.sql.SQLException;
 
