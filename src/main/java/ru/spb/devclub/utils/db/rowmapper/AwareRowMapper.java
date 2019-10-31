@@ -33,7 +33,7 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
         T result = getResultInstance();
         Field[] fields = getFields();
         for (Field field : fields) {
-            String columnName = getColumnName(field);
+            String columnName = getColumnNameByFieldName(field.getName());
             Method method = getMethod(field);
             Class<?> fieldType = getFieldType(field);
             if (fieldType.isPrimitive()) {
@@ -98,8 +98,7 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
         return clazz.getDeclaredFields();
     }
 
-    protected String getColumnName(Field field) {
-        String fieldName = field.getName();
+    protected String getColumnNameByFieldName(String fieldName) {
         StringBuilder builder = new StringBuilder();
         for (char ch : fieldName.toCharArray()) {
             if (Character.isUpperCase(ch)) {
@@ -146,8 +145,8 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     public AwareRowMapper<T> prefix(String prefix) {
         return new AwareRowMapper<T>(this) {
             @Override
-            protected String getColumnName(Field field) {
-                return prefix + "." + super.getColumnName(field);
+            protected String getColumnNameByFieldName(String fieldName) {
+                return prefix + "." + super.getColumnNameByFieldName(fieldName);
             }
         };
     }

@@ -1,4 +1,4 @@
-package ru.spb.devclub.utils.db;
+package ru.spb.devclub.utils.db.rowmapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +8,6 @@ import org.mockito.MockitoAnnotations;
 import ru.spb.devclub.utils.db.entity.BoxedEntity;
 import ru.spb.devclub.utils.db.entity.ComplexEntity;
 import ru.spb.devclub.utils.db.entity.PrimitiveEntity;
-import ru.spb.devclub.utils.db.rowmapper.AwareRowMapper;
-import ru.spb.devclub.utils.db.rowmapper.AwareRowMapperException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
