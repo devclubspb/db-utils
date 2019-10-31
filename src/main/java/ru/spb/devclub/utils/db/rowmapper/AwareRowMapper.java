@@ -16,6 +16,7 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     protected final Class<T> clazz;
     protected final Map<Class<?>, AwareRowMapper<?>> mappers;
     protected final Map<String, String> fieldToColumn;
+    protected final Map<String, BoxedRowMapper<Object>> fieldToValue;
 
     public AwareRowMapper(Class<T> clazz) {
         this(clazz, new HashMap<>());
@@ -24,13 +25,15 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     public AwareRowMapper(Class<T> clazz, Map<Class<?>, AwareRowMapper<?>> mappers) {
         this.clazz = clazz;
         this.mappers = mappers;
-        fieldToColumn = new HashMap<>();
+        this.fieldToColumn = new HashMap<>();
+        this.fieldToValue = new HashMap<>();
     }
 
     protected AwareRowMapper(AwareRowMapper<T> other) {
         this.clazz = other.clazz;
         this.mappers = new HashMap<>(other.mappers);
         this.fieldToColumn = new HashMap<>(other.fieldToColumn);
+        this.fieldToValue = new HashMap<>(other.fieldToValue);
     }
 
     @Override
@@ -38,8 +41,14 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
         T result = getResultInstance();
         Field[] fields = getFields();
         for (Field field : fields) {
-            String columnName = getColumnNameByFieldName(field.getName());
+            String fieldName = field.getName();
             Method method = getMethod(field);
+            if (fieldToValue.containsKey(fieldName)) {
+                Object value = fieldToValue.get(fieldName).mapRow(rs, rowNum);
+                invokeMethod(method, result, value);
+                continue;
+            }
+            String columnName = getColumnNameByFieldName(field.getName());
             Class<?> fieldType = getFieldType(field);
             if (fieldType.isPrimitive()) {
                 if (int.class.equals(fieldType)) {
@@ -162,14 +171,36 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     public AwareRowMapper<T> fieldToColumn(String fieldName, String columnName) throws AwareRowMapperException {
         Objects.requireNonNull(fieldName);
         Objects.requireNonNull(columnName);
-        boolean hasFieldName = Arrays.stream(getFields()).map(Field::getName).anyMatch(fieldName::equals);
-        if (hasFieldName) {
+        if (hasFieldByName(fieldName)) {
             AwareRowMapper<T> other = new AwareRowMapper<>(this);
             other.fieldToColumn.put(fieldName, columnName);
             return other;
-        } else
+        } else {
             throw new AwareRowMapperException("Class \"" +
                     clazz.getName() + "\" doesn't have a \"" +
                     fieldName + "\" field.");
+        }
+    }
+
+    public AwareRowMapper<T> fieldToValue(String fieldName, Object value) throws AwareRowMapperException {
+        return fieldToValue(fieldName, (rs, rowNum) -> value);
+    }
+
+    public AwareRowMapper<T> fieldToValue(String fieldName, BoxedRowMapper<Object> mapper)
+            throws AwareRowMapperException {
+        Objects.requireNonNull(fieldName);
+        if (hasFieldByName(fieldName)) {
+            AwareRowMapper<T> other = new AwareRowMapper<>(this);
+            other.fieldToValue.put(fieldName, mapper);
+            return other;
+        } else {
+            throw new AwareRowMapperException("Class \"" +
+                    clazz.getName() + "\" doesn't have a \"" +
+                    fieldName + "\" field.");
+        }
+    }
+
+    private boolean hasFieldByName(String fieldName) {
+        return Arrays.stream(getFields()).map(Field::getName).anyMatch(fieldName::equals);
     }
 }

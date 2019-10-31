@@ -225,8 +225,80 @@ public class AwareRowMapperTest {
     }
 
     @Test(expected = AwareRowMapperException.class)
-    public void should_throw_exceptionAboutNoFieldInClass() throws SQLException {
+    public void should_throw_exceptionAboutNoFieldInClass_DueFieldName() throws SQLException {
         new AwareRowMapper<>(PrimitiveEntity.class).fieldToColumn("fakeField", "FAKE_FIELD");
+    }
+
+    @Test
+    public void should_map_valueWithCustomFieldValue() throws SQLException {
+        int intValue = 40;
+        PrimitiveEntity expected = new PrimitiveEntity();
+        expected.setIntField(intValue);
+        Mockito.when(mockResultSet.getInt("INT_FIELD")).thenReturn(Integer.MAX_VALUE);
+        AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .fieldToValue("intField", intValue);
+        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void should_map_valueWithCustomFieldValues() throws SQLException {
+        int intValue = 40;
+        char charValue = 'r';
+        PrimitiveEntity expected = new PrimitiveEntity();
+        expected.setIntField(intValue);
+        expected.setCharField(charValue);
+        Mockito.when(mockResultSet.getInt("INT_FIELD")).thenReturn(intValue);
+        Mockito.when(mockResultSet.getString("CHAR_FIELD")).thenReturn("ignored");
+        AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .fieldToValue("intField", intValue)
+                .fieldToValue("charField", charValue);
+        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = AwareRowMapperException.class)
+    public void should_throw_exceptionAboutNoFieldInClass_DueFieldValue() throws SQLException {
+        new AwareRowMapper<>(PrimitiveEntity.class).fieldToValue("fakeField", "fake value");
+    }
+
+    @Test
+    public void should_map_valueWithCustomFieldValueViaLambda() throws SQLException {
+        int intValue = 40;
+        PrimitiveEntity expected = new PrimitiveEntity();
+        expected.setIntField(intValue);
+        String columnName = "INT_FIELD";
+        Mockito.when(mockResultSet.getInt(columnName)).thenReturn(intValue * 2);
+        AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .fieldToValue("intField", (rs, rowNum) -> rs.getInt(columnName) / 2);
+        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void should_map_valueWithCustomFieldValuesViaLambda() throws SQLException {
+        int intValue = 40;
+        char charValue = 'r';
+        PrimitiveEntity expected = new PrimitiveEntity();
+        expected.setIntField(intValue);
+        expected.setCharField(charValue);
+        String columnName1 = "INT_FIELD";
+        String columnName2 = "CHAR_FIELD";
+        Mockito.when(mockResultSet.getInt(columnName1)).thenReturn(intValue * 2);
+        Mockito.when(mockResultSet.getString(columnName2)).thenReturn("value" + charValue);
+        AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
+                .fieldToValue("intField", (rs, rowNum) -> rs.getInt(columnName1) / 2)
+                .fieldToValue("charField", (rs, rowNum) -> {
+                    String value = rs.getString(columnName2);
+                    return value.charAt(value.length() - 1);
+                });
+        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = AwareRowMapperException.class)
+    public void should_throw_exceptionAboutNoFieldInClass_DueFieldValueViaLambda() throws SQLException {
+        new AwareRowMapper<>(PrimitiveEntity.class).fieldToValue("fakeField", (rs, rowNum) -> "ignored");
     }
 
     static class EntityWithoutDefaultConstructor {
