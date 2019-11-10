@@ -138,21 +138,17 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? dateFormat.format(date) : null;
     }
 
-    public static BoxedResultSet boxed(ResultSet resultSet) {
-        return new SimpleBoxedResultSet(resultSet);
-    }
-
     /**
-     * Wraps to {@link ru.spb.devclub.utils.db.OptionalResultSet}.
+     * Wraps to {@link ru.spb.devclub.utils.db.ExtendedResultSet}.
      *
-     * @param resultSet the {@link java.sql.ResultSet} instance
-     * @return the {@code resultSet} wrapped to {@link ru.spb.devclub.utils.db.SimpleOptionalResultSet}
-     * @see ru.spb.devclub.utils.db.OptionalResultSet
-     * @see ru.spb.devclub.utils.db.SimpleOptionalResultSet
+     * @param resultSet the {@link ResultSet} instance
+     * @return the {@code resultSet} wrapped to {@link ru.spb.devclub.utils.db.SimpleExtendedResultSet}
+     * @see ru.spb.devclub.utils.db.ExtendedResultSet
+     * @see ru.spb.devclub.utils.db.SimpleExtendedResultSet
      * @see java.sql.ResultSet
      * @since 0.1.0
      */
-    public static OptionalResultSet optional(ResultSet resultSet) {
-        return new SimpleOptionalResultSet(resultSet);
+    public static ExtendedResultSet extended(ResultSet resultSet) {
+        return new SimpleExtendedResultSet(resultSet);
     }
 }

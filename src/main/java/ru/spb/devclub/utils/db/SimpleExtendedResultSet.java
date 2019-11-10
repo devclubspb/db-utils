@@ -4,18 +4,80 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 
-/**
- * The simple implementation of {@link ru.spb.devclub.utils.db.OptionalResultSet}.
- *
- * @author Grig Alex
- * @version 0.1.0
- * @see ru.spb.devclub.utils.db.OptionalResultSet
- * @see ru.spb.devclub.utils.db.SimpleBoxedResultSet
- * @since 0.1.0
- */
-/* package */class SimpleOptionalResultSet extends SimpleBoxedResultSet implements OptionalResultSet {
-    protected SimpleOptionalResultSet(ResultSet resultSet) {
+public class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSet {
+
+    public SimpleExtendedResultSet(ResultSet resultSet) {
         super(resultSet);
+    }
+
+    @Override
+    public Long getLongOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getLong(resultSet, columnName);
+    }
+
+    @Override
+    public Long getLongOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getLong(resultSet, columnIndex);
+    }
+
+    @Override
+    public Integer getIntOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getInt(resultSet, columnName);
+    }
+
+    @Override
+    public Integer getIntOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getInt(resultSet, columnIndex);
+    }
+
+    @Override
+    public Boolean getBooleanOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getBoolean(resultSet, columnName);
+    }
+
+    @Override
+    public Boolean getBooleanOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getBoolean(resultSet, columnIndex);
+    }
+
+    @Override
+    public Short getShortOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getShort(resultSet, columnName);
+    }
+
+    @Override
+    public Short getShortOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getShort(resultSet, columnIndex);
+    }
+
+    @Override
+    public Byte getByteOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getByte(resultSet, columnName);
+    }
+
+    @Override
+    public Byte getByteOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getByte(resultSet, columnIndex);
+    }
+
+    @Override
+    public Double getDoubleOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getDouble(resultSet, columnName);
+    }
+
+    @Override
+    public Double getDoubleOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getDouble(resultSet, columnIndex);
+    }
+
+    @Override
+    public Float getFloatOrNull(String columnName) throws SQLException {
+        return ResultSetUtils.getFloat(resultSet, columnName);
+    }
+
+    @Override
+    public Float getFloatOrNull(int columnIndex) throws SQLException {
+        return ResultSetUtils.getFloat(resultSet, columnIndex);
     }
 
     @Override
