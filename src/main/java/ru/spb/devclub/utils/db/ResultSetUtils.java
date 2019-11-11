@@ -1,7 +1,9 @@
 package ru.spb.devclub.utils.db;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @SuppressWarnings("WeakerAccess")
 public final class ResultSetUtils {
@@ -103,6 +105,36 @@ public final class ResultSetUtils {
     public static Float getFloat(ResultSet rs, int columnIndex) throws SQLException {
         float result = rs.getFloat(columnIndex);
         return !rs.wasNull() ? result : null;
+    }
+
+    public static LocalDate getLocalDate(ResultSet rs, String columnName) throws SQLException {
+        Date date = rs.getDate(columnName);
+        return date != null ? date.toLocalDate() : null;
+    }
+
+    public static LocalDate getLocalDate(ResultSet rs, int columnIndex) throws SQLException {
+        Date date = rs.getDate(columnIndex);
+        return date != null ? date.toLocalDate() : null;
+    }
+
+    public static LocalTime getLocalTime(ResultSet rs, String columnName) throws SQLException {
+        Time time = rs.getTime(columnName);
+        return time != null ? time.toLocalTime() : null;
+    }
+
+    public static LocalTime getLocalTime(ResultSet rs, int columnIndex) throws SQLException {
+        Time time = rs.getTime(columnIndex);
+        return time != null ? time.toLocalTime() : null;
+    }
+
+    public static LocalDateTime getLocalDateTime(ResultSet rs, String columnName) throws SQLException {
+        Timestamp timestamp = rs.getTimestamp(columnName);
+        return timestamp != null ? timestamp.toLocalDateTime() : null;
+    }
+
+    public static LocalDateTime getLocalDateTime(ResultSet rs, int columnIndex) throws SQLException {
+        Timestamp timestamp = rs.getTimestamp(columnIndex);
+        return timestamp != null ? timestamp.toLocalDateTime() : null;
     }
 
     /**
