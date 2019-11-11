@@ -8,8 +8,8 @@ import java.sql.SQLException;
 /**
  * Extends {@link org.springframework.jdbc.core.RowMapper} interface.
  *
- * @author Grig Alex
- * @version 0.1.0
+ * @author Grig Alex, Yagnyshev Gordey
+ * @version 0.2.0
  * @see org.springframework.jdbc.core.RowMapper
  * @see ru.spb.devclub.utils.db.ExtendedResultSet
  * @since 0.1.0
