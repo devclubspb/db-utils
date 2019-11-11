@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleExtendedResultSetTest {
