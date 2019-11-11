@@ -47,6 +47,14 @@
       </roles>
       <name>avetall87@gmail.com</name>
     </developer>
+    <developer>
+      <id>Yagnyshev</id>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <name>Yagnyshev Gordey</name>
+      <email>yagnyshevgs@gmail.com</email>
+    </developer>
   </developers>
 
   <properties>
