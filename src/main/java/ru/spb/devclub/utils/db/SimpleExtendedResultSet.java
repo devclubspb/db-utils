@@ -4,9 +4,18 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Optional;
 
-public class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSet {
-
-    public SimpleExtendedResultSet(ResultSet resultSet) {
+/**
+ * Simple implementation of {@link  ru.spb.devclub.utils.db.ExtendedResultSet}.
+ *
+ * @author Yagnyshev Gordey, Grig Alex
+ * @version 0.2.0
+ * @see ru.spb.devclub.utils.db.ExtendedResultSet
+ * @see ru.spb.devclub.utils.db.ProxyResultSet
+ * @see java.sql.ResultSet
+ * @since 0.2.0
+ */
+class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSet {
+    SimpleExtendedResultSet(ResultSet resultSet) {
         super(resultSet);
     }
 
