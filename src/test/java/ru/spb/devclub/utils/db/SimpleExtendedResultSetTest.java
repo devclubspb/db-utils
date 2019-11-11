@@ -7,7 +7,6 @@ import com.mockrunner.mock.jdbc.MockRef;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -18,11 +17,9 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SimpleExtendedResultSetTest {
+public class SimpleExtendedResultSetTest extends BaseResultSetMockTest {
     private static String columnName = "column";
     private static int columnIndex = 0;
-    @Mock
-    protected ResultSet mockResultSet;
     protected ExtendedResultSet extendedResultSet;
 
     @Before
