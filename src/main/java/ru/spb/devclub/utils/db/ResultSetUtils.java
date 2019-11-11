@@ -1,37 +1,13 @@
 package ru.spb.devclub.utils.db;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @SuppressWarnings("WeakerAccess")
 public final class ResultSetUtils {
     private ResultSetUtils() {
-    }
-
-    public static <T extends Enum<T>> T getEnumValue(ResultSet rs, String columnName, T[] enumItems) throws SQLException {
-        String result = rs.getString(columnName);
-        if (!rs.wasNull()) {
-            return getEnumValue(result, enumItems);
-        }
-        return null;
-    }
-
-    public static <T extends Enum<T>> T getEnumValue(ResultSet rs, int columnIndex, T[] enumItems) throws SQLException {
-        String result = rs.getString(columnIndex);
-        if (!rs.wasNull()) {
-            return getEnumValue(result, enumItems);
-        }
-        return null;
-    }
-
-    private static <T extends Enum<T>> T getEnumValue(String value, T[] enumItems) {
-        for (T item : enumItems) {
-            if (item.toString().equals(value)) {
-                return item;
-            }
-        }
-        throw new IllegalArgumentException("Enum \"" + enumItems.getClass().getComponentType().getName() +
-                "\" doesn't contain a constant by the string value \"" + value + "\".");
     }
 
     public static Long getLong(ResultSet rs, String columnName) throws SQLException {
@@ -94,7 +70,6 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? result : null;
     }
 
-
     public static Float getFloat(ResultSet rs, String columnName) throws SQLException {
         float result = rs.getFloat(columnName);
         return !rs.wasNull() ? result : null;
@@ -103,6 +78,56 @@ public final class ResultSetUtils {
     public static Float getFloat(ResultSet rs, int columnIndex) throws SQLException {
         float result = rs.getFloat(columnIndex);
         return !rs.wasNull() ? result : null;
+    }
+
+    /**
+     * @throws SQLException             from {@link java.sql.ResultSet#getString(String)}
+     * @throws IllegalArgumentException from {@link java.lang.Enum#valueOf(Class, String)}
+     * @throws NullPointerException     from {@link java.lang.Enum#valueOf(Class, String)}
+     */
+    public static <T extends Enum<T>> T getEnumByName(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
+        return Enum.valueOf(enumType, rs.getString(columnName));
+    }
+
+    /**
+     * @throws SQLException             from {@link java.sql.ResultSet#getString(int)}
+     * @throws IllegalArgumentException from {@link java.lang.Enum#valueOf(Class, String)}
+     * @throws NullPointerException     from {@link java.lang.Enum#valueOf(Class, String)}
+     */
+    public static <T extends Enum<T>> T getEnumByName(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
+        return Enum.valueOf(enumType, rs.getString(columnIndex));
+    }
+
+    /**
+     * @throws SQLException                   from {@link java.sql.ResultSet#getInt(String)}
+     * @throws ArrayIndexOutOfBoundsException if ordinal greater that enum values length
+     */
+    public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
+        //noinspection DuplicatedCode
+        try {
+            Method method = enumType.getDeclaredMethod("values");
+            //noinspection unchecked
+            T[] values = (T[]) method.invoke(null);
+            return values[rs.getInt(columnName)];
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new SQLException(e);
+        }
+    }
+
+    /**
+     * @throws SQLException                   from {@link java.sql.ResultSet#getInt(int)}
+     * @throws ArrayIndexOutOfBoundsException if ordinal greater that enum values length
+     */
+    public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
+        //noinspection DuplicatedCode
+        try {
+            Method method = enumType.getDeclaredMethod("values");
+            //noinspection unchecked
+            T[] values = (T[]) method.invoke(null);
+            return values[rs.getInt(columnIndex)];
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new SQLException(e);
+        }
     }
 
     /**
