@@ -60,7 +60,6 @@ void example(ExtendedResultSet rs) {
 }
 ```
 
-
 and `java.util.Optional` usage methods.
 
 ```java
