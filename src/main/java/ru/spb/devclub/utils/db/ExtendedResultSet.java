@@ -7,8 +7,8 @@ import java.util.Optional;
 /**
  * Extends {@link java.sql.ResultSet} interface.
  *
- * @author Grig Alex
- * @version 0.1.0
+ * @author Grig Alex, Yagnyshev Gordey
+ * @version 0.2.0
  * @see java.sql.ResultSet
  * @since 0.1.0
  */
