@@ -1,10 +1,7 @@
 package ru.spb.devclub.utils.db;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.DateFormat;
 
 @SuppressWarnings("WeakerAccess")
 public final class ResultSetUtils {
@@ -106,36 +103,6 @@ public final class ResultSetUtils {
     public static Float getFloat(ResultSet rs, int columnIndex) throws SQLException {
         float result = rs.getFloat(columnIndex);
         return !rs.wasNull() ? result : null;
-    }
-
-    public static Timestamp getTimestamp(ResultSet rs, String columnName) throws SQLException {
-        Timestamp result = rs.getTimestamp(columnName);
-        return !rs.wasNull() ? result : null;
-    }
-
-    public static Timestamp getTimestamp(ResultSet rs, int columnIndex) throws SQLException {
-        Timestamp result = rs.getTimestamp(columnIndex);
-        return !rs.wasNull() ? result : null;
-    }
-
-    public static Date getDate(ResultSet rs, String columnName) throws SQLException {
-        Date result = rs.getDate(columnName);
-        return !rs.wasNull() ? result : null;
-    }
-
-    public static Date getDate(ResultSet rs, int columnIndex) throws SQLException {
-        Date result = rs.getDate(columnIndex);
-        return !rs.wasNull() ? result : null;
-    }
-
-    public static String getDateString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
-        Date date = rs.getDate(columnName);
-        return !rs.wasNull() ? dateFormat.format(date) : null;
-    }
-
-    public static String getDateString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
-        Date date = rs.getDate(columnIndex);
-        return !rs.wasNull() ? dateFormat.format(date) : null;
     }
 
     /**
