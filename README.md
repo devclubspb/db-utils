@@ -38,13 +38,11 @@ Others snippets are available in [The Central Repository](https://search.maven.o
 
 ### Extended ResultSet
 
-#### BoxedResultSet
-
 The `java.sql.ResultSet` returns the default value for primitive types if the value is SQL `NULL`.
-_BoxedResultSet_ adds boxed primitive types usage methods.
+_ExtendedResultSet_ adds boxed primitive types usage methods
 
 ```java
-void example(BoxedResultSet rs) {
+void example(ExtendedResultSet rs) {
     Boolean booleanValue = rs.getBooleanOrNull(0);
     booleanValue = rs.getBooleanOrNull("zero");
     Byte byteValue = rs.getByteOrNull(1);
@@ -62,12 +60,10 @@ void example(BoxedResultSet rs) {
 }
 ```
 
-#### OptionalResultSet
-
-_OptionalResultSet_ adds `java.util.Optional` usage methods.
+and `java.util.Optional` usage methods.
 
 ```java
-void example(OptionalResultSet rs){
+void example(ExtendedResultSet rs){
     Optional<Boolean> booleanOptional = rs.getOptionalBoolean(0);
     booleanOptional = rs.getOptionalBoolean("zero");
     Optional<Byte> byteOptional = rs.getOptionalByte(1);
@@ -91,37 +87,26 @@ Also for the following types: `byte[], BigDecimal, Date, Time, Timestamp, Ref, B
 
 The `org.springframework.jdbc.core.RowMapper` provides the `mapRow(rs:ResultSet, rowNum:int)` method.
 
-#### BoxedRowMapper
+#### ExtendedRowMapper
 
-_BoxedRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _BoxedResultSet_.
+_ExtendedRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _ExtendedResultSet_.
 
 ```java
 import java.sql.SQLException;
 
-import ru.spb.devclub.utils.db.BoxedResultSet;
-import ru.spb.devclub.utils.db.BoxedRowMapper;
-
-public class ShortRowMapper implements BoxedRowMapper<Short> {
+public class ShortRowMapper implements ExtendedRowMapper<Short> {
     @Override
-    public Short mapRow(BoxedResultSet rs, int rowNum) throws SQLException {
+    public Short mapRow(ExtendedResultSet rs, int rowNum) throws SQLException {
         return rs.getShortOrNull(0);
     }
 }
 ```
-
-#### OptionalRowMapper
-
-_OptionalRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _OptionalResultSet_.
-
 ```java
 import java.sql.SQLException;
 
-import ru.spb.devclub.utils.db.OptionalResultSet;
-import ru.spb.devclub.utils.db.OptionalRowMapper;
-
-public class FloatRowMapper implements OptionalRowMapper<Float> {
+public class FloatRowMapper implements ExtendedRowMapper<Float> {
     @Override
-    public Float mapRow(OptionalResultSet rs, int rowNum) throws SQLException {
+    public Float mapRow(ExtendedResultSet rs, int rowNum) throws SQLException {
         return rs.getOptionalFloat(0).orElse(-1.0f);
     }
 }
