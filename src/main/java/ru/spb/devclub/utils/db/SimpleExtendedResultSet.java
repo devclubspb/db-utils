@@ -90,6 +90,26 @@ class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSe
     }
 
     @Override
+    public <T extends Enum<T>> T getEnumByName(String columnName, Class<T> enumType) throws SQLException {
+        return ResultSetUtils.getEnumByName(resultSet, columnName, enumType);
+    }
+
+    @Override
+    public <T extends Enum<T>> T getEnumByName(int columnIndex, Class<T> enumType) throws SQLException {
+        return ResultSetUtils.getEnumByName(resultSet, columnIndex, enumType);
+    }
+
+    @Override
+    public <T extends Enum<T>> T getEnumByOrdinal(String columnName, Class<T> enumType) throws SQLException {
+        return ResultSetUtils.getEnumByOrdinal(resultSet, columnName, enumType);
+    }
+
+    @Override
+    public <T extends Enum<T>> T getEnumByOrdinal(int columnIndex, Class<T> enumType) throws SQLException {
+        return ResultSetUtils.getEnumByOrdinal(resultSet, columnIndex, enumType);
+    }
+
+    @Override
     public Optional<String> getOptionalString(int columnIndex) throws SQLException {
         return Optional.ofNullable(getString(columnIndex));
     }

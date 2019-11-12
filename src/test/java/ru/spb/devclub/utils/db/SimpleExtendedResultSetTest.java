@@ -7,7 +7,6 @@ import com.mockrunner.mock.jdbc.MockRef;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -18,11 +17,9 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SimpleExtendedResultSetTest {
+public class SimpleExtendedResultSetTest extends BaseResultSetMockTest {
     private static String columnName = "column";
     private static int columnIndex = 0;
-    @Mock
-    protected ResultSet mockResultSet;
     protected ExtendedResultSet extendedResultSet;
 
     @Before
@@ -238,6 +235,38 @@ public class SimpleExtendedResultSetTest {
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
 
         assertNull(extendedResultSet.getFloatOrNull(columnIndex));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetByNameEnumByColumnName() throws SQLException {
+        EntityType expected = EntityType.EASY;
+        Mockito.when(mockResultSet.getString(columnName)).thenReturn(expected.toString());
+
+        assertEquals(expected, extendedResultSet.getEnumByName(columnName, EntityType.class));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetByNameEnumByColumnIndex() throws SQLException {
+        EntityType expected = EntityType.MEDIUM;
+        Mockito.when(mockResultSet.getString(columnIndex)).thenReturn(expected.toString());
+
+        assertEquals(expected, extendedResultSet.getEnumByName(columnIndex, EntityType.class));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetByOrdinalEnumByColumnName() throws SQLException {
+        EntityType expected = EntityType.HARD;
+        Mockito.when(mockResultSet.getInt(columnName)).thenReturn(expected.ordinal());
+
+        assertEquals(expected, extendedResultSet.getEnumByOrdinal(columnName, EntityType.class));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetByOrdinalEnumByColumnIndex() throws SQLException {
+        EntityType expected = EntityType.EASY;
+        Mockito.when(mockResultSet.getInt(columnIndex)).thenReturn(expected.ordinal());
+
+        assertEquals(expected, extendedResultSet.getEnumByOrdinal(columnIndex, EntityType.class));
     }
 
     @Test
@@ -537,6 +566,7 @@ public class SimpleExtendedResultSetTest {
     @Test
     public void checkExpectedValueFromGetOptionalDoubleByColumnIndex() throws SQLException {
         int columnIndex = 0;
+        //noinspection WrapperTypeMayBePrimitive
         Double expected = 40_000D;
         Mockito.when(mockResultSet.getDouble(columnIndex)).thenReturn(expected);
 
@@ -558,6 +588,7 @@ public class SimpleExtendedResultSetTest {
     @Test
     public void checkExpectedValueFromGetOptionalDoubleByColumnName() throws SQLException {
         String columnName = "ignored";
+        //noinspection WrapperTypeMayBePrimitive
         Double expected = 40_000D;
         Mockito.when(mockResultSet.getDouble(columnName)).thenReturn(expected);
 
