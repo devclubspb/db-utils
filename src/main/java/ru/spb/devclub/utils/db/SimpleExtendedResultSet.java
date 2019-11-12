@@ -2,6 +2,9 @@ package ru.spb.devclub.utils.db;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 /**
@@ -90,6 +93,35 @@ class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSe
     }
 
     @Override
+    public LocalDate getLocalDate(String columnName) throws SQLException {
+        return ResultSetUtils.getLocalDate(resultSet, columnName);
+    }
+
+    @Override
+    public LocalDate getLocalDate(int columnIndex) throws SQLException {
+        return ResultSetUtils.getLocalDate(resultSet, columnIndex);
+    }
+
+    @Override
+    public LocalTime getLocalTime(String columnName) throws SQLException {
+        return ResultSetUtils.getLocalTime(resultSet, columnName);
+    }
+
+    @Override
+    public LocalTime getLocalTime(int columnIndex) throws SQLException {
+        return ResultSetUtils.getLocalTime(resultSet, columnIndex);
+    }
+
+    @Override
+    public LocalDateTime getLocalDateTime(String columnName) throws SQLException {
+        return ResultSetUtils.getLocalDateTime(resultSet, columnName);
+    }
+
+    @Override
+    public LocalDateTime getLocalDateTime(int columnIndex) throws SQLException {
+        return ResultSetUtils.getLocalDateTime(resultSet, columnIndex);
+    }
+
     public <T extends Enum<T>> T getEnumByName(String columnName, Class<T> enumType) throws SQLException {
         return ResultSetUtils.getEnumByName(resultSet, columnName, enumType);
     }

@@ -2,6 +2,9 @@ package ru.spb.devclub.utils.db;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 /**
@@ -40,6 +43,18 @@ public interface ExtendedResultSet extends ResultSet {
     Float getFloatOrNull(String columnName) throws SQLException;
 
     Float getFloatOrNull(int columnIndex) throws SQLException;
+
+    LocalDate getLocalDate(String columnName) throws SQLException;
+
+    LocalDate getLocalDate(int columnIndex) throws SQLException;
+
+    LocalTime getLocalTime(String columnName) throws SQLException;
+
+    LocalTime getLocalTime(int columnIndex) throws SQLException;
+
+    LocalDateTime getLocalDateTime(String columnName) throws SQLException;
+
+    LocalDateTime getLocalDateTime(int columnIndex) throws SQLException;
 
     <T extends Enum<T>> T getEnumByName(String columnName, Class<T> enumType) throws SQLException;
 

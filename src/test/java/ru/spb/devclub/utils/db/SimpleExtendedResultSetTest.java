@@ -12,6 +12,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -238,6 +241,101 @@ public class SimpleExtendedResultSetTest extends BaseResultSetMockTest {
     }
 
     @Test
+    public void checkExpectedValueFromGetLocalDateByColumnName() throws SQLException {
+        LocalDate expected = LocalDate.of(2019, 11, 11);
+        Mockito.when(mockResultSet.getDate(columnName)).thenReturn(Date.valueOf(expected));
+        LocalDate actual = extendedResultSet.getLocalDate(columnName);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void checkNullFromGetLocalDateByColumnName() throws SQLException {
+        Mockito.when(mockResultSet.getDate(columnName)).thenReturn(null);
+
+        assertNull(extendedResultSet.getLocalDate(columnName));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetLocalDateByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        LocalDate expected = LocalDate.of(2019, 11, 11);
+        Mockito.when(mockResultSet.getDate(columnIndex)).thenReturn(Date.valueOf(expected));
+
+        assertEquals(expected, extendedResultSet.getLocalDate(columnIndex));
+    }
+
+    @Test
+    public void checkNullFromGetLocalDateByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.getDate(columnIndex)).thenReturn(null);
+
+        assertNull(extendedResultSet.getLocalDate(columnIndex));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetLocalTimeByColumnName() throws SQLException {
+        LocalTime expected = LocalTime.of(20, 20);
+        Mockito.when(mockResultSet.getTime(columnName)).thenReturn(Time.valueOf(expected));
+
+        assertEquals(expected, extendedResultSet.getLocalTime(columnName));
+    }
+
+    @Test
+    public void checkNullFromGetLocalTimeByColumnName() throws SQLException {
+        Mockito.when(mockResultSet.getTime(columnName)).thenReturn(null);
+
+        assertNull(extendedResultSet.getLocalTime(columnName));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetLocalTimeByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        LocalTime expected = LocalTime.of(20, 20);
+        Mockito.when(mockResultSet.getTime(columnIndex)).thenReturn(Time.valueOf(expected));
+
+        assertEquals(expected, extendedResultSet.getLocalTime(columnIndex));
+    }
+
+    @Test
+    public void checkNullFromGetLocalTimeByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.getTime(columnIndex)).thenReturn(null);
+
+        assertNull(extendedResultSet.getLocalTime(columnIndex));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetLocalDateTimeByColumnName() throws SQLException {
+        LocalDateTime expected = LocalDateTime.of(2019, 11, 11, 20, 20);
+        Mockito.when(mockResultSet.getTimestamp(columnName)).thenReturn(Timestamp.valueOf(expected));
+
+        assertEquals(expected, extendedResultSet.getLocalDateTime(columnName));
+    }
+
+    @Test
+    public void checkNullFromGetLocalDateTimeByColumnName() throws SQLException {
+        Mockito.when(mockResultSet.getTimestamp(columnName)).thenReturn(null);
+
+        assertNull(extendedResultSet.getLocalDateTime(columnName));
+    }
+
+    @Test
+    public void checkExpectedValueFromGetLocalDateTimeByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        LocalDateTime expected = LocalDateTime.of(2019, 11, 11, 20, 20);
+        Mockito.when(mockResultSet.getTimestamp(columnIndex)).thenReturn(Timestamp.valueOf(expected));
+
+        assertEquals(expected, extendedResultSet.getLocalDateTime(columnIndex));
+    }
+
+    @Test
+    public void checkNullFromGetLocalDateTimeByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        Mockito.when(mockResultSet.getTimestamp(columnIndex)).thenReturn(null);
+
+        assertNull(extendedResultSet.getLocalDateTime(columnIndex));
+    }
+
     public void checkExpectedValueFromGetByNameEnumByColumnName() throws SQLException {
         EntityType expected = EntityType.EASY;
         Mockito.when(mockResultSet.getString(columnName)).thenReturn(expected.toString());
