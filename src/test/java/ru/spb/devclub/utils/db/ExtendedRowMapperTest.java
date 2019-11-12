@@ -1,25 +1,13 @@
 package ru.spb.devclub.utils.db;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
-public class ExtendedRowMapperTest {
-    @Mock
-    private ResultSet mockResultSet;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
+public class ExtendedRowMapperTest extends BaseResultSetMockTest {
     @Test
     public void checkBoxedExpectedValue() throws SQLException {
         int rowNum = 0;

@@ -56,6 +56,14 @@ public interface ExtendedResultSet extends ResultSet {
 
     LocalDateTime getLocalDateTime(int columnIndex) throws SQLException;
 
+    <T extends Enum<T>> T getEnumByName(String columnName, Class<T> enumType) throws SQLException;
+
+    <T extends Enum<T>> T getEnumByName(int columnIndex, Class<T> enumType) throws SQLException;
+
+    <T extends Enum<T>> T getEnumByOrdinal(String columnName, Class<T> enumType) throws SQLException;
+
+    <T extends Enum<T>> T getEnumByOrdinal(int columnIndex, Class<T> enumType) throws SQLException;
+
     Optional<String> getOptionalString(int columnIndex) throws SQLException;
 
     Optional<String> getOptionalString(String columnName) throws SQLException;

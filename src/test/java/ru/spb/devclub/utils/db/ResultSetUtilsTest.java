@@ -15,40 +15,77 @@ import java.time.LocalTime;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class ResultSetUtilsTest {
-    @Mock
-    private ResultSet mockResultSet;
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+public class ResultSetUtilsTest extends BaseResultSetMockTest {
+    @Test
+    public void checkExpectedValueFromGetByNameEnumByColumnName() throws SQLException {
+        EntityType expected = EntityType.EASY;
+        String columnLabel = "ignored";
+        String enumName = expected.toString();
+        Mockito.when(mockResultSet.getString(columnLabel)).thenReturn(enumName);
+        EntityType actual = ResultSetUtils.getEnumByName(mockResultSet, columnLabel, EntityType.class);
+        assertEquals(expected, actual);
     }
 
-    enum ExampleEnum {A, B}
+    @Test(expected = IllegalArgumentException.class)
+    public void checkExceptionFromGetByNameEnumByColumnName() throws SQLException {
+        String columnLabel = "ignored";
+        String enumName = "throws exception";
+        Mockito.when(mockResultSet.getString(columnLabel)).thenReturn(enumName);
+        ResultSetUtils.getEnumByName(mockResultSet, columnLabel, EntityType.class);
+    }
 
     @Test
-    public void checkGetEnumValueByValidValue() throws SQLException {
-        EnumResultSetImpl rs = new EnumResultSetImpl("A");
-
-        ExampleEnum result = ResultSetUtils.getEnumValue(rs, "column", ExampleEnum.values());
-
-        Assert.assertEquals(ExampleEnum.A, result);
+    public void checkExpectedValueFromGetByNameEnumByColumnIndex() throws SQLException {
+        EntityType expected = EntityType.MEDIUM;
+        int columnIndex = 0;
+        String enumName = expected.toString();
+        Mockito.when(mockResultSet.getString(columnIndex)).thenReturn(enumName);
+        EntityType actual = ResultSetUtils.getEnumByName(mockResultSet, columnIndex, EntityType.class);
+        assertEquals(expected, actual);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void checkGetEnumValueByInvalidValue() throws SQLException {
-        EnumResultSetImpl rs = new EnumResultSetImpl("C");
-
-        ResultSetUtils.getEnumValue(rs, "column", ExampleEnum.values());
+    public void checkExceptionFromGetByNameEnumByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        String enumName = "throws exception";
+        Mockito.when(mockResultSet.getString(columnIndex)).thenReturn(enumName);
+        ResultSetUtils.getEnumByName(mockResultSet, columnIndex, EntityType.class);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void checkGetEnumValueByNullValue() throws SQLException {
-        EnumResultSetImpl rs = new EnumResultSetImpl("C");
+    @Test
+    public void checkExpectedValueFromGetByOrdinalEnumByColumnName() throws SQLException {
+        EntityType expected = EntityType.HARD;
+        String columnLabel = "ignored";
+        int enumOrdinal = expected.ordinal();
+        Mockito.when(mockResultSet.getInt(columnLabel)).thenReturn(enumOrdinal);
+        EntityType actual = ResultSetUtils.getEnumByOrdinal(mockResultSet, columnLabel, EntityType.class);
+        assertEquals(expected, actual);
+    }
 
-        ExampleEnum result = ResultSetUtils.getEnumValue(rs, "column", ExampleEnum.values());
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void checkExceptionFromGetByOrdinalEnumByColumnName() throws SQLException {
+        String columnLabel = "ignored";
+        int enumOrdinal = EntityType.values().length;
+        Mockito.when(mockResultSet.getInt(columnLabel)).thenReturn(enumOrdinal);
+        ResultSetUtils.getEnumByOrdinal(mockResultSet, columnLabel, EntityType.class);
+    }
 
-        Assert.assertNull(result);
+    @Test
+    public void checkExpectedValueFromGetByOrdinalEnumByColumnIndex() throws SQLException {
+        EntityType expected = EntityType.EASY;
+        int columnIndex = 0;
+        int enumOrdinal = expected.ordinal();
+        Mockito.when(mockResultSet.getInt(columnIndex)).thenReturn(enumOrdinal);
+        EntityType actual = ResultSetUtils.getEnumByOrdinal(mockResultSet, columnIndex, EntityType.class);
+        assertEquals(expected, actual);
+    }
+
+    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    public void checkExceptionFromGetByOrdinalEnumByColumnIndex() throws SQLException {
+        int columnIndex = 0;
+        int enumOrdinal = EntityType.values().length;
+        Mockito.when(mockResultSet.getInt(columnIndex)).thenReturn(enumOrdinal);
+        ResultSetUtils.getEnumByOrdinal(mockResultSet, columnIndex, EntityType.class);
     }
 
     @Test
