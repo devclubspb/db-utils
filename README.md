@@ -8,7 +8,8 @@ This library contains useful utility classes to work with the database and to re
 
 Releases are available in [Maven Central](https://repo1.maven.org/maven2/ru/spb/devclub/utils/db-utils/).
 
-List of version [changes](CHANGES.md).
+List of version [changes](CHANGES.md). 
+List of version [migrations](MIGRATION.md).
 
 ### Maven
 
