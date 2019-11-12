@@ -120,6 +120,7 @@ class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSe
     @Override
     public LocalDateTime getLocalDateTime(int columnIndex) throws SQLException {
         return ResultSetUtils.getLocalDateTime(resultSet, columnIndex);
+    }
 
     public <T extends Enum<T>> T getEnumByName(String columnName, Class<T> enumType) throws SQLException {
         return ResultSetUtils.getEnumByName(resultSet, columnName, enumType);
