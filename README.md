@@ -40,45 +40,44 @@ Others snippets are available in [The Central Repository](https://search.maven.o
 ### Extended ResultSet
 
 The `java.sql.ResultSet` returns the default value for primitive types if the value is SQL `NULL`.
-_ExtendedResultSet_ adds boxed primitive types usage methods
+_ExtendedResultSet_ adds:
+
+- boxed primitive types usage methods:
 
 ```java
 void example(ExtendedResultSet rs) {
     Boolean booleanValue = rs.getBooleanOrNull(0);
-    booleanValue = rs.getBooleanOrNull("zero");
-    Byte byteValue = rs.getByteOrNull(1);
-    byteValue = rs.getByteOrNull("one");
-    Short shortValue = rs.getShortOrNull(2);
-    shortValue = rs.getShortOrNull("two");
-    Integer intValue = rs.getIntOrNull(3);
-    intValue = rs.getIntOrNull("three");
-    Long longValue = rs.getLongOrNull(4);
-    longValue = rs.getLongOrNull("four");
-    Float floatValue = rs.getFloatOrNull(5);
-    floatValue = rs.getFloatOrNull("five");
-    Double doubleValue = rs.getDoubleOrNull(6);
-    doubleValue = rs.getDoubleOrNull("six");
+    Integer intValue = rs.getIntOrNull("one");
+    Long longValue = rs.getLongOrNull(2);
 }
 ```
 
-and `java.util.Optional` usage methods.
+- local dates usage methods:
+
+```java
+void example(ExtendedResultSet rs) {
+    LocalDate date = rs.getLocalDate(0);
+    LocalTime time = rs.getLocalTime("one");
+    LocalDateTime dateTime = rs.getLocalDateTime(2);
+}
+```
+
+- enum usage methods:
+
+```java
+void example(ExtendedResultSet rs) {
+    Thread.State zeroState = rs.getEnumByName(0);
+    Thread.State firstState = rs.getEnumByOrdinal("one");
+}
+```
+
+- `java.util.Optional` usage methods:
 
 ```java
 void example(ExtendedResultSet rs){
     Optional<Boolean> booleanOptional = rs.getOptionalBoolean(0);
-    booleanOptional = rs.getOptionalBoolean("zero");
-    Optional<Byte> byteOptional = rs.getOptionalByte(1);
-    byteOptional = rs.getOptionalByte("one");
-    Optional<Short> shortOptional = rs.getOptionalShort(2);
-    shortOptional = rs.getOptionalShort("two");
-    Optional<Integer> intOptional = rs.getOptionalInt(3);
-    intOptional = rs.getOptionalInt("three");
-    Optional<Long> longOptional = rs.getOptionalLong(4);
-    longOptional = rs.getOptionalLong("four");
-    Optional<Float> floatOptional = rs.getOptionalFloat(5);
-    floatOptional = rs.getOptionalFloat("five");
-    Optional<Double> doubleOptional = rs.getOptionalDouble(6);
-    doubleOptional = rs.getOptionalDouble("six");
+    Optional<Integer> intOptional = rs.getOptionalInt("one");
+    Optional<Long> longOptional = rs.getOptionalLong(2);
 }
 ```
 
