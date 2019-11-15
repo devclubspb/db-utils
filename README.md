@@ -37,9 +37,10 @@ Others snippets are available in [The Central Repository](https://search.maven.o
 
 ## Usage
 
-### Extended ResultSet
+### ExtendedResultSet
 
 The `java.sql.ResultSet` returns the default value for primitive types if the value is SQL `NULL`.
+
 _ExtendedResultSet_ adds:
 
 - boxed primitive types usage methods:
@@ -83,11 +84,9 @@ void example(ExtendedResultSet rs){
 
 Also for the following types: `byte[], BigDecimal, Date, Time, Timestamp, Ref, Blob, Clob, Array`.
 
-### Extended RowMapper
+### ExtendedRowMapper
 
 The `org.springframework.jdbc.core.RowMapper` provides the `mapRow(rs:ResultSet, rowNum:int)` method.
-
-#### ExtendedRowMapper
 
 _ExtendedRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _ExtendedResultSet_.
 
