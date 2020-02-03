@@ -1,13 +1,11 @@
-package ru.spb.devclub.utils.db.rowmapper;
+package ru.spb.devclub.utils.db;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import ru.spb.devclub.utils.db.entity.BoxedEntity;
-import ru.spb.devclub.utils.db.entity.ComplexEntity;
-import ru.spb.devclub.utils.db.entity.PrimitiveEntity;
+import ru.spb.devclub.utils.db.entity.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -299,31 +297,5 @@ public class AwareRowMapperTest {
     @Test(expected = AwareRowMapperException.class)
     public void should_throw_exceptionAboutNoFieldInClass_DueFieldValueViaLambda() throws SQLException {
         new AwareRowMapper<>(PrimitiveEntity.class).fieldToValue("fakeField", (rs, rowNum) -> "ignored");
-    }
-
-    static class EntityWithoutDefaultConstructor {
-        public EntityWithoutDefaultConstructor(@SuppressWarnings("unused") String ignored) {
-        }
-    }
-
-    static class EntityWithoutSetterMethod {
-        @SuppressWarnings("unused")
-        private String ignored;
-
-        public EntityWithoutSetterMethod() {
-        }
-    }
-
-    static class EntityWithThrowableSetterMethod {
-        @SuppressWarnings("unused")
-        private String ignored;
-
-        public EntityWithThrowableSetterMethod() {
-        }
-
-        @SuppressWarnings("unused")
-        public void setIgnored(@SuppressWarnings("unused") String ignored) throws IllegalAccessException {
-            throw new IllegalAccessException();
-        }
     }
 }
