@@ -4,7 +4,7 @@
 
   <groupId>ru.spb.devclub.utils</groupId>
   <artifactId>db-utils</artifactId>
-  <version>0.1.1</version>
+  <version>0.2.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>db-utils</name>
@@ -46,6 +46,14 @@
         <role>developer</role>
       </roles>
       <name>avetall87@gmail.com</name>
+    </developer>
+    <developer>
+      <id>Yagnyshev</id>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <name>Yagnyshev Gordey</name>
+      <email>yagnyshevgs@gmail.com</email>
     </developer>
   </developers>
 
