@@ -15,8 +15,12 @@ import java.sql.SQLException;
  * @since 0.1.0
  */
 public interface ExtendedRowMapper<T> extends RowMapper<T> {
+    /**
+     * {@inheritDoc}
+     */
     T mapRow(ExtendedResultSet rs, int rowNum) throws SQLException;
 
+    /** {@inheritDoc} */
     @Override
     default T mapRow(ResultSet rs, int rowNum) throws SQLException {
         return mapRow(ResultSetUtils.extended(rs), rowNum);
