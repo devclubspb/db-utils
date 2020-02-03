@@ -197,7 +197,7 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         }
     }
 
-    private boolean hasFieldByName(String fieldName) {
+    protected boolean hasFieldByName(String fieldName) {
         return Arrays.stream(getFields()).map(Field::getName).anyMatch(fieldName::equals);
     }
 }
