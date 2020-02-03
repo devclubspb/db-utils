@@ -1,7 +1,4 @@
-package ru.spb.devclub.utils.db.rowmapper;
-
-import ru.spb.devclub.utils.db.BoxedResultSet;
-import ru.spb.devclub.utils.db.BoxedRowMapper;
+package ru.spb.devclub.utils.db;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -12,11 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class AwareRowMapper<T> implements BoxedRowMapper<T> {
+public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
     protected final Class<T> clazz;
     protected final Map<Class<?>, AwareRowMapper<?>> mappers;
     protected final Map<String, String> fieldToColumn;
-    protected final Map<String, BoxedRowMapper<Object>> fieldToValue;
+    protected final Map<String, ExtendedRowMapper<Object>> fieldToValue;
 
     public AwareRowMapper(Class<T> clazz) {
         this(clazz, new HashMap<>());
@@ -37,7 +34,7 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
     }
 
     @Override
-    public T mapRow(BoxedResultSet rs, int rowNum) throws SQLException {
+    public T mapRow(ExtendedResultSet rs, int rowNum) throws SQLException {
         T result = getResultInstance();
         Field[] fields = getFields();
         for (Field field : fields) {
@@ -186,7 +183,7 @@ public class AwareRowMapper<T> implements BoxedRowMapper<T> {
         return fieldToValue(fieldName, (rs, rowNum) -> value);
     }
 
-    public AwareRowMapper<T> fieldToValue(String fieldName, BoxedRowMapper<Object> mapper)
+    public AwareRowMapper<T> fieldToValue(String fieldName, ExtendedRowMapper<Object> mapper)
             throws AwareRowMapperException {
         Objects.requireNonNull(fieldName);
         if (hasFieldByName(fieldName)) {
