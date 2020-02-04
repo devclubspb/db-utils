@@ -4,7 +4,7 @@ List of version [changes](CHANGES.md).
 
 ## 0.3.0
 
-In ExtendedRowMapper implementation add `extends SpringRowMapper<T>`, if implementation used like Spring-Jdbc
+In ExtendedRowMapper implementation add `extends SpringRowMapper<T>`, if implementation used as Spring-Jdbc
 [RowMapper](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html) 
 implementation.
 
