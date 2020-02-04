@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static ru.spb.devclub.utils.db.ResultSetUtils.extended;
 
 public class AwareRowMapperTest {
     @Mock
@@ -43,7 +44,7 @@ public class AwareRowMapperTest {
         Mockito.when(mockResultSet.getByte("BYTE_FIELD")).thenReturn(bValue);
         Mockito.when(mockResultSet.getString("CHAR_FIELD")).thenReturn(cValue + "bc");
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -52,7 +53,7 @@ public class AwareRowMapperTest {
         PrimitiveEntity expected = new PrimitiveEntity();
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -74,7 +75,7 @@ public class AwareRowMapperTest {
         Mockito.when(mockResultSet.getShort("BOXED_SHORT_FIELD")).thenReturn(sValue);
         Mockito.when(mockResultSet.getByte("BOXED_BYTE_FIELD")).thenReturn(byteValue);
         AwareRowMapper<BoxedEntity> rowMapper = new AwareRowMapper<>(BoxedEntity.class);
-        BoxedEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        BoxedEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -83,7 +84,7 @@ public class AwareRowMapperTest {
         BoxedEntity expected = new BoxedEntity();
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         AwareRowMapper<BoxedEntity> rowMapper = new AwareRowMapper<>(BoxedEntity.class);
-        BoxedEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        BoxedEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -103,7 +104,7 @@ public class AwareRowMapperTest {
         Mockito.when(mockResultSet.getBoolean("COMPLETED")).thenReturn(completed);
         Mockito.when(mockResultSet.getBoolean("CHECKED")).thenReturn(checked);
         AwareRowMapper<ComplexEntity> rowMapper = new AwareRowMapper<>(ComplexEntity.class);
-        ComplexEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        ComplexEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -112,7 +113,7 @@ public class AwareRowMapperTest {
         ComplexEntity expected = new ComplexEntity();
         Mockito.when(mockResultSet.wasNull()).thenReturn(true);
         AwareRowMapper<ComplexEntity> rowMapper = new AwareRowMapper<>(ComplexEntity.class);
-        ComplexEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        ComplexEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -173,7 +174,7 @@ public class AwareRowMapperTest {
         mappers.put(BoxedEntity.class, boxedRowMapper);
         AwareRowMapper<ComplexEntity> rowMapper = new AwareRowMapper<>(ComplexEntity.class, mappers)
                 .prefix(complexPrefix);
-        ComplexEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        ComplexEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -189,7 +190,7 @@ public class AwareRowMapperTest {
 
     @Test(expected = AwareRowMapperException.class)
     public void checkMethodInvokeException() throws SQLException {
-        new AwareRowMapper<>(EntityWithThrowableSetterMethod.class).mapRow(mockResultSet, 0);
+        new AwareRowMapper<>(EntityWithThrowableSetterMethod.class).mapRow(extended(mockResultSet), 0);
     }
 
     @Test
@@ -200,7 +201,7 @@ public class AwareRowMapperTest {
         Mockito.when(mockResultSet.getInt(columnName)).thenReturn(Integer.MAX_VALUE);
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
                 .fieldToColumn("intField", columnName);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -218,7 +219,7 @@ public class AwareRowMapperTest {
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
                 .fieldToColumn("intField", columnName1)
                 .fieldToColumn("charField", columnName2);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -235,7 +236,7 @@ public class AwareRowMapperTest {
         Mockito.when(mockResultSet.getInt("INT_FIELD")).thenReturn(Integer.MAX_VALUE);
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
                 .fieldToValue("intField", intValue);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -251,7 +252,7 @@ public class AwareRowMapperTest {
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
                 .fieldToValue("intField", intValue)
                 .fieldToValue("charField", charValue);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -269,7 +270,7 @@ public class AwareRowMapperTest {
         Mockito.when(mockResultSet.getInt(columnName)).thenReturn(intValue * 2);
         AwareRowMapper<PrimitiveEntity> rowMapper = new AwareRowMapper<>(PrimitiveEntity.class)
                 .fieldToValue("intField", (rs, rowNum) -> rs.getInt(columnName) / 2);
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
@@ -290,7 +291,7 @@ public class AwareRowMapperTest {
                     String value = rs.getString(columnName2);
                     return value.charAt(value.length() - 1);
                 });
-        PrimitiveEntity actual = rowMapper.mapRow(mockResultSet, 0);
+        PrimitiveEntity actual = rowMapper.mapRow(extended(mockResultSet), 0);
         assertEquals(expected, actual);
     }
 
