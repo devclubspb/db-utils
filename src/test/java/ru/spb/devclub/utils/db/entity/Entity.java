@@ -1,4 +1,4 @@
-package ru.spb.devclub.utils.db;
+package ru.spb.devclub.utils.db.entity;
 
 import java.util.Objects;
 

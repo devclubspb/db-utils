@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import ru.spb.devclub.utils.db.entity.EntityType;
 
 import java.math.BigDecimal;
 import java.sql.*;
