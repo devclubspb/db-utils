@@ -82,11 +82,13 @@ void example(ExtendedResultSet rs){
 }
 ```
 
-Also for the following types: `byte[], BigDecimal, Date, Time, Timestamp, Ref, Blob, Clob, Array`.
+Also for the all types from ResultSet.
 
 ### ExtendedRowMapper
 
-The `org.springframework.jdbc.core.RowMapper` provides the `mapRow(rs:ResultSet, rowNum:int)` method.
+The Spring-Jdbc 
+[RowMapper](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html)
+provides the `mapRow(rs:ResultSet, rowNum:int)` method.
 
 _ExtendedRowMapper_ replaces the _ResultSet_ argument type of _RowMapper#mapRow_ with the _ExtendedResultSet_.
 
@@ -100,13 +102,18 @@ public class ShortRowMapper implements ExtendedRowMapper<Short> {
     }
 }
 ```
-```java
-import java.sql.SQLException;
 
-public class FloatRowMapper implements ExtendedRowMapper<Float> {
+For use as Spring-Jdbc 
+[RowMapper](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jdbc/core/RowMapper.html)
+, add `extends SpringRowMapper<T>` to _ExtendedRowMapper_ implementation.
+
+```java
+class EntityRowMapper extends SpringRowMapper<Entity> implements ExtendedRowMapper<Entity> {
     @Override
-    public Float mapRow(ExtendedResultSet rs, int rowNum) throws SQLException {
-        return rs.getOptionalFloat(0).orElse(-1.0f);
+    public Entity mapRow(ExtendedResultSet rs, int rowNum) {
+        Entity entity = new Entity();
+        // get values from rs and set to entity
+        return entity;
     }
 }
 ```
