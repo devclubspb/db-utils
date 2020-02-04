@@ -232,8 +232,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @param enumType    a {@link java.lang.Class} object.
-     * @param <T>         a T object.
      * @return a T object.
+     * @param <T> a T object.
      * @throws java.sql.SQLException if any.
      */
     <T extends Enum<T>> T getEnumByName(int columnIndex, Class<T> enumType) throws SQLException;
@@ -243,8 +243,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @param enumType   a {@link java.lang.Class} object.
-     * @param <T>        a T object.
      * @return a T object.
+     * @param <T> a T object.
      * @throws java.sql.SQLException if any.
      */
     <T extends Enum<T>> T getEnumByOrdinal(String columnName, Class<T> enumType) throws SQLException;
@@ -254,8 +254,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @param enumType    a {@link java.lang.Class} object.
-     * @param <T>         a T object.
      * @return a T object.
+     * @param <T> a T object.
      * @throws java.sql.SQLException if any.
      */
     <T extends Enum<T>> T getEnumByOrdinal(int columnIndex, Class<T> enumType) throws SQLException;
@@ -265,8 +265,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<String> getOptionalString(int columnIndex) throws SQLException;
 
@@ -275,8 +275,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<String> getOptionalString(String columnName) throws SQLException;
 
@@ -285,8 +285,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Boolean> getOptionalBoolean(int columnIndex) throws SQLException;
 
@@ -295,8 +295,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Boolean> getOptionalBoolean(String columnName) throws SQLException;
 
@@ -305,8 +305,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Byte> getOptionalByte(int columnIndex) throws SQLException;
 
@@ -315,8 +315,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Byte> getOptionalByte(String columnName) throws SQLException;
 
@@ -325,8 +325,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Short> getOptionalShort(int columnIndex) throws SQLException;
 
@@ -335,8 +335,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Short> getOptionalShort(String columnName) throws SQLException;
 
@@ -345,8 +345,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Integer> getOptionalInt(int columnIndex) throws SQLException;
 
@@ -355,8 +355,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Integer> getOptionalInt(String columnName) throws SQLException;
 
@@ -365,8 +365,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Long> getOptionalLong(int columnIndex) throws SQLException;
 
@@ -375,8 +375,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Long> getOptionalLong(String columnName) throws SQLException;
 
@@ -385,8 +385,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Float> getOptionalFloat(int columnIndex) throws SQLException;
 
@@ -395,8 +395,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Float> getOptionalFloat(String columnName) throws SQLException;
 
@@ -405,8 +405,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Double> getOptionalDouble(int columnIndex) throws SQLException;
 
@@ -415,8 +415,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Double> getOptionalDouble(String columnName) throws SQLException;
 
@@ -425,8 +425,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<byte[]> getOptionalBytes(int columnIndex) throws SQLException;
 
@@ -435,8 +435,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<byte[]> getOptionalBytes(String columnName) throws SQLException;
 
@@ -445,8 +445,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Date> getOptionalDate(int columnIndex) throws SQLException;
 
@@ -455,8 +455,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Date> getOptionalDate(String columnName) throws SQLException;
 
@@ -465,8 +465,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Time> getOptionalTime(int columnIndex) throws SQLException;
 
@@ -475,8 +475,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Time> getOptionalTime(String columnName) throws SQLException;
 
@@ -485,8 +485,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Timestamp> getOptionalTimestamp(int columnIndex) throws SQLException;
 
@@ -495,8 +495,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Timestamp> getOptionalTimestamp(String columnName) throws SQLException;
 
@@ -505,8 +505,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<BigDecimal> getOptionalBigDecimal(int columnIndex) throws SQLException;
 
@@ -515,8 +515,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<BigDecimal> getOptionalBigDecimal(String columnName) throws SQLException;
 
@@ -525,8 +525,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Ref> getOptionalRef(int columnIndex) throws SQLException;
 
@@ -535,8 +535,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Ref> getOptionalRef(String columnName) throws SQLException;
 
@@ -545,8 +545,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Blob> getOptionalBlob(int columnIndex) throws SQLException;
 
@@ -555,8 +555,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Blob> getOptionalBlob(String columnName) throws SQLException;
 
@@ -565,8 +565,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Clob> getOptionalClob(int columnIndex) throws SQLException;
 
@@ -575,8 +575,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Clob> getOptionalClob(String columnName) throws SQLException;
 
@@ -585,8 +585,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnIndex a int.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Array> getOptionalArray(int columnIndex) throws SQLException;
 
@@ -595,8 +595,8 @@ public interface ExtendedResultSet extends ResultSet {
      *
      * @param columnName a {@link java.lang.String} object.
      * @return a {@link java.util.Optional} object.
-     * @throws java.sql.SQLException if any.
      * @since 0.2.0
+     * @throws java.sql.SQLException if any.
      */
     Optional<Array> getOptionalArray(String columnName) throws SQLException;
 }

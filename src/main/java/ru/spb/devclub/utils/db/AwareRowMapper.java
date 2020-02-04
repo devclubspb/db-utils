@@ -9,16 +9,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>AwareRowMapper class.</p>
+ *
+ * @author Grig Alex
+ * @version 0.3.0
+ * @since 0.3.0
+ */
 public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
     protected final Class<T> clazz;
     protected final Map<Class<?>, AwareRowMapper<?>> mappers;
     protected final Map<String, String> fieldToColumn;
     protected final Map<String, ExtendedRowMapper<Object>> fieldToValue;
 
+    /**
+     * <p>Constructor for AwareRowMapper.</p>
+     *
+     * @param clazz a {@link java.lang.Class} object.
+     */
     public AwareRowMapper(Class<T> clazz) {
         this(clazz, new HashMap<>());
     }
 
+    /**
+     * <p>Constructor for AwareRowMapper.</p>
+     *
+     * @param clazz   a {@link java.lang.Class} object.
+     * @param mappers a {@link java.util.Map} object.
+     */
     public AwareRowMapper(Class<T> clazz, Map<Class<?>, AwareRowMapper<?>> mappers) {
         this.clazz = clazz;
         this.mappers = mappers;
@@ -26,6 +44,11 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         this.fieldToValue = new HashMap<>();
     }
 
+    /**
+     * <p>Constructor for AwareRowMapper.</p>
+     *
+     * @param other a {@link ru.spb.devclub.utils.db.AwareRowMapper} object.
+     */
     protected AwareRowMapper(AwareRowMapper<T> other) {
         this.clazz = other.clazz;
         this.mappers = new HashMap<>(other.mappers);
@@ -33,6 +56,9 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         this.fieldToValue = new HashMap<>(other.fieldToValue);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T mapRow(ExtendedResultSet rs, int rowNum) throws SQLException {
         T result = getResultInstance();
@@ -96,6 +122,12 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         return result;
     }
 
+    /**
+     * <p>getResultInstance.</p>
+     *
+     * @return a T object.
+     * @throws ru.spb.devclub.utils.db.AwareRowMapperException if any.
+     */
     protected T getResultInstance() throws AwareRowMapperException {
         try {
             return clazz.getConstructor().newInstance();
@@ -105,10 +137,21 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         }
     }
 
+    /**
+     * <p>getFields.</p>
+     *
+     * @return an array of {@link java.lang.reflect.Field} objects.
+     */
     protected Field[] getFields() {
         return clazz.getDeclaredFields();
     }
 
+    /**
+     * <p>getColumnNameByFieldName.</p>
+     *
+     * @param fieldName a {@link java.lang.String} object.
+     * @return a {@link java.lang.String} object.
+     */
     protected String getColumnNameByFieldName(String fieldName) {
         if (fieldToColumn.containsKey(fieldName)) {
             return fieldToColumn.get(fieldName);
@@ -124,6 +167,13 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         return builder.toString();
     }
 
+    /**
+     * <p>getMethod.</p>
+     *
+     * @param field a {@link java.lang.reflect.Field} object.
+     * @return a {@link java.lang.reflect.Method} object.
+     * @throws ru.spb.devclub.utils.db.AwareRowMapperException if any.
+     */
     protected Method getMethod(Field field) throws AwareRowMapperException {
         try {
             return clazz.getMethod(getMethodName(field), getFieldType(field));
@@ -136,15 +186,35 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         }
     }
 
+    /**
+     * <p>getMethodName.</p>
+     *
+     * @param field a {@link java.lang.reflect.Field} object.
+     * @return a {@link java.lang.String} object.
+     */
     protected String getMethodName(Field field) {
         String fieldName = field.getName();
         return "set" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     }
 
+    /**
+     * <p>getFieldType.</p>
+     *
+     * @param field a {@link java.lang.reflect.Field} object.
+     * @return a {@link java.lang.Class} object.
+     */
     protected Class<?> getFieldType(Field field) {
         return field.getType();
     }
 
+    /**
+     * <p>invokeMethod.</p>
+     *
+     * @param method a {@link java.lang.reflect.Method} object.
+     * @param result a T object.
+     * @param values a {@link java.lang.Object} object.
+     * @throws ru.spb.devclub.utils.db.AwareRowMapperException if any.
+     */
     protected void invokeMethod(Method method, T result, Object... values) throws AwareRowMapperException {
         try {
             method.invoke(result, values);
@@ -156,6 +226,12 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         }
     }
 
+    /**
+     * <p>prefix.</p>
+     *
+     * @param prefix a {@link java.lang.String} object.
+     * @return a {@link ru.spb.devclub.utils.db.AwareRowMapper} object.
+     */
     public AwareRowMapper<T> prefix(String prefix) {
         return new AwareRowMapper<T>(this) {
             @Override
@@ -165,6 +241,14 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         };
     }
 
+    /**
+     * <p>fieldToColumn.</p>
+     *
+     * @param fieldName  a {@link java.lang.String} object.
+     * @param columnName a {@link java.lang.String} object.
+     * @return a {@link ru.spb.devclub.utils.db.AwareRowMapper} object.
+     * @throws ru.spb.devclub.utils.db.AwareRowMapperException if any.
+     */
     public AwareRowMapper<T> fieldToColumn(String fieldName, String columnName) throws AwareRowMapperException {
         Objects.requireNonNull(fieldName);
         Objects.requireNonNull(columnName);
@@ -179,10 +263,26 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         }
     }
 
+    /**
+     * <p>fieldToValue.</p>
+     *
+     * @param fieldName a {@link java.lang.String} object.
+     * @param value     a {@link java.lang.Object} object.
+     * @return a {@link ru.spb.devclub.utils.db.AwareRowMapper} object.
+     * @throws ru.spb.devclub.utils.db.AwareRowMapperException if any.
+     */
     public AwareRowMapper<T> fieldToValue(String fieldName, Object value) throws AwareRowMapperException {
         return fieldToValue(fieldName, (rs, rowNum) -> value);
     }
 
+    /**
+     * <p>fieldToValue.</p>
+     *
+     * @param fieldName a {@link java.lang.String} object.
+     * @param mapper    a {@link ru.spb.devclub.utils.db.ExtendedRowMapper} object.
+     * @return a {@link ru.spb.devclub.utils.db.AwareRowMapper} object.
+     * @throws ru.spb.devclub.utils.db.AwareRowMapperException if any.
+     */
     public AwareRowMapper<T> fieldToValue(String fieldName, ExtendedRowMapper<Object> mapper)
             throws AwareRowMapperException {
         Objects.requireNonNull(fieldName);
@@ -197,6 +297,12 @@ public class AwareRowMapper<T> implements ExtendedRowMapper<T> {
         }
     }
 
+    /**
+     * <p>hasFieldByName.</p>
+     *
+     * @param fieldName a {@link java.lang.String} object.
+     * @return a boolean.
+     */
     protected boolean hasFieldByName(String fieldName) {
         return Arrays.stream(getFields()).map(Field::getName).anyMatch(fieldName::equals);
     }

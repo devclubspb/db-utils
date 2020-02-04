@@ -293,9 +293,9 @@ public final class ResultSetUtils {
      * @param enumType   a {@link java.lang.Class} object.
      * @param <T>        a T object.
      * @return a T object.
-     * @throws java.sql.SQLException              from {@link java.sql.ResultSet#getString(String)}
      * @throws java.lang.IllegalArgumentException from {@link java.lang.Enum#valueOf(Class, String)}
      * @throws java.lang.NullPointerException     from {@link java.lang.Enum#valueOf(Class, String)}
+     * @throws java.sql.SQLException              if any.
      */
     public static <T extends Enum<T>> T getEnumByName(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
         return Enum.valueOf(enumType, rs.getString(columnName));
@@ -307,11 +307,11 @@ public final class ResultSetUtils {
      * @param rs          a {@link java.sql.ResultSet} object.
      * @param columnIndex a int.
      * @param enumType    a {@link java.lang.Class} object.
-     * @param <T>         a T object.
      * @return a T object.
-     * @throws java.sql.SQLException              from {@link java.sql.ResultSet#getString(int)}
      * @throws java.lang.IllegalArgumentException from {@link java.lang.Enum#valueOf(Class, String)}
      * @throws java.lang.NullPointerException     from {@link java.lang.Enum#valueOf(Class, String)}
+     * @param <T> a T object.
+     * @throws java.sql.SQLException if any.
      */
     public static <T extends Enum<T>> T getEnumByName(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
         return Enum.valueOf(enumType, rs.getString(columnIndex));
@@ -323,10 +323,10 @@ public final class ResultSetUtils {
      * @param rs         a {@link java.sql.ResultSet} object.
      * @param columnName a {@link java.lang.String} object.
      * @param enumType   a {@link java.lang.Class} object.
-     * @param <T>        a T object.
      * @return a T object.
-     * @throws java.sql.SQLException                    from {@link java.sql.ResultSet#getInt(String)}
      * @throws java.lang.ArrayIndexOutOfBoundsException if ordinal greater that enum values length
+     * @param <T> a T object.
+     * @throws java.sql.SQLException if any.
      */
     public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
         //noinspection DuplicatedCode
@@ -346,10 +346,10 @@ public final class ResultSetUtils {
      * @param rs          a {@link java.sql.ResultSet} object.
      * @param columnIndex a int.
      * @param enumType    a {@link java.lang.Class} object.
-     * @param <T>         a T object.
      * @return a T object.
-     * @throws java.sql.SQLException                    from {@link java.sql.ResultSet#getInt(int)}
      * @throws java.lang.ArrayIndexOutOfBoundsException if ordinal greater that enum values length
+     * @param <T> a T object.
+     * @throws java.sql.SQLException if any.
      */
     public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
         //noinspection DuplicatedCode
