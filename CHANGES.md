@@ -1,5 +1,9 @@
 # db-utils changes
 
+## 0.3.0
+
+*   [[#26](../../issues/26)] Remove spring-jdbc dependency
+
 ## 0.2.0
 
 *   [[#17](../../issues/17)] Add local dates get to ExtendedResultSet
