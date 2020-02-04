@@ -2,6 +2,7 @@ package ru.spb.devclub.utils.db;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import ru.spb.devclub.utils.db.entity.EntityType;
 
 import java.sql.Date;
 import java.sql.SQLException;
