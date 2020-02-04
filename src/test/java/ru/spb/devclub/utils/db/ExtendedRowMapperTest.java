@@ -21,7 +21,7 @@ public class ExtendedRowMapperTest extends BaseResultSetMockTest {
         assertEquals(expected, actual);
     }
 
-    public static class BoxedEntityRowMapper implements ExtendedRowMapper<Entity> {
+    public static class BoxedEntityRowMapper extends SpringRowMapper<Entity> implements ExtendedRowMapper<Entity> {
         static String ID_COLUMN_NAME = "ID";
         static String NAME_COLUMN_NAME = "NAME";
 
@@ -47,7 +47,7 @@ public class ExtendedRowMapperTest extends BaseResultSetMockTest {
         assertEquals(expected, actual);
     }
 
-    public static class OptionalEntityRowMapper implements ExtendedRowMapper<Entity> {
+    public static class OptionalEntityRowMapper extends SpringRowMapper<Entity> implements ExtendedRowMapper<Entity> {
         static String ID_COLUMN_NAME = "ID";
         static String NAME_COLUMN_NAME = "NAME";
 

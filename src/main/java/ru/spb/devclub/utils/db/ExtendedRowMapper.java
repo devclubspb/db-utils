@@ -1,28 +1,22 @@
 package ru.spb.devclub.utils.db;
 
-import org.springframework.jdbc.core.RowMapper;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Extends {@link org.springframework.jdbc.core.RowMapper} interface.
+ * The {@link org.springframework.jdbc.core.RowMapper} interface
+ * with using {@link ru.spb.devclub.utils.db.ExtendedResultSet}.
  *
- * @author Grig Alex, Yagnyshev Gordey
- * @version 0.2.0
- * @see org.springframework.jdbc.core.RowMapper
+ * @author Grig Alex
+ * @author Yagnyshev Gordey
+ * @version 0.3.0
  * @see ru.spb.devclub.utils.db.ExtendedResultSet
+ * @see org.springframework.jdbc.core.RowMapper
  * @since 0.1.0
  */
-public interface ExtendedRowMapper<T> extends RowMapper<T> {
+@FunctionalInterface
+public interface ExtendedRowMapper<T> {
     /**
      * {@inheritDoc}
      */
     T mapRow(ExtendedResultSet rs, int rowNum) throws SQLException;
-
-    /** {@inheritDoc} */
-    @Override
-    default T mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return mapRow(ResultSetUtils.extended(rs), rowNum);
-    }
 }
