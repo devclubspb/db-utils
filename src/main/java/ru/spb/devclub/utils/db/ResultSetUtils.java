@@ -3,9 +3,11 @@ package ru.spb.devclub.utils.db;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 /**
@@ -265,6 +267,60 @@ public final class ResultSetUtils {
         return Optional.ofNullable(rs.getString(columnName));
     }
 
+    public static String getDateString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
+        Date result = rs.getDate(columnName);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalDateString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
+        return Optional.ofNullable(getDateString(rs, columnName, dateFormat));
+    }
+
+    public static String getDateString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
+        Date result = rs.getDate(columnIndex);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalDateString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
+        return Optional.ofNullable(getDateString(rs, columnIndex, dateFormat));
+    }
+
+    public static String getTimeString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
+        Time result = rs.getTime(columnName);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalTimeString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
+        return Optional.ofNullable(getTimeString(rs, columnName, dateFormat));
+    }
+
+    public static String getTimeString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
+        Time result = rs.getTime(columnIndex);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalTimeString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
+        return Optional.ofNullable(getTimeString(rs, columnIndex, dateFormat));
+    }
+
+    public static String getTimestampString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
+        Timestamp result = rs.getTimestamp(columnName);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalTimestampString(ResultSet rs, String columnName, DateFormat dateFormat) throws SQLException {
+        return Optional.ofNullable(getTimestampString(rs, columnName, dateFormat));
+    }
+
+    public static String getTimestampString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
+        Timestamp result = rs.getTimestamp(columnIndex);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalTimestampString(ResultSet rs, int columnIndex, DateFormat dateFormat) throws SQLException {
+        return Optional.ofNullable(getTimestampString(rs, columnIndex, dateFormat));
+    }
+
     /**
      * <p>getLocalDate.</p>
      *
@@ -299,6 +355,24 @@ public final class ResultSetUtils {
 
     public static Optional<LocalDate> getOptionalLocalDate(ResultSet rs, int columnIndex) throws SQLException {
         return Optional.ofNullable(getLocalDate(rs, columnIndex));
+    }
+
+    public static String getLocalDateString(ResultSet rs, String columnName, DateTimeFormatter dateFormat) throws SQLException {
+        LocalDate result = getLocalDate(rs, columnName);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static String getLocalDateString(ResultSet rs, int columnIndex, DateTimeFormatter dateFormat) throws SQLException {
+        LocalDate result = getLocalDate(rs, columnIndex);
+        return result != null ? dateFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalLocalDateString(ResultSet rs, String columnName, DateTimeFormatter dateFormat) throws SQLException {
+        return Optional.ofNullable(getLocalDateString(rs, columnName, dateFormat));
+    }
+
+    public static Optional<String> getOptionalLocalDateString(ResultSet rs, int columnIndex, DateTimeFormatter dateFormat) throws SQLException {
+        return Optional.ofNullable(getLocalDateString(rs, columnIndex, dateFormat));
     }
 
     /**
@@ -337,6 +411,24 @@ public final class ResultSetUtils {
         return Optional.ofNullable(getLocalTime(rs, columnIndex));
     }
 
+    public static String getLocalTimeString(ResultSet rs, String columnName, DateTimeFormatter timeFormat) throws SQLException {
+        LocalTime result = getLocalTime(rs, columnName);
+        return result != null ? timeFormat.format(result) : null;
+    }
+
+    public static String getLocalTimeString(ResultSet rs, int columnIndex, DateTimeFormatter timeFormat) throws SQLException {
+        LocalTime result = getLocalTime(rs, columnIndex);
+        return result != null ? timeFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalLocalTimeString(ResultSet rs, String columnName, DateTimeFormatter timeFormat) throws SQLException {
+        return Optional.ofNullable(getLocalTimeString(rs, columnName, timeFormat));
+    }
+
+    public static Optional<String> getOptionalLocalTimeString(ResultSet rs, int columnIndex, DateTimeFormatter timeFormat) throws SQLException {
+        return Optional.ofNullable(getLocalTimeString(rs, columnIndex, timeFormat));
+    }
+
     /**
      * <p>getLocalDateTime.</p>
      *
@@ -371,6 +463,24 @@ public final class ResultSetUtils {
 
     public static Optional<LocalDateTime> getOptionalLocalDateTime(ResultSet rs, int columnIndex) throws SQLException {
         return Optional.ofNullable(getLocalDateTime(rs, columnIndex));
+    }
+
+    public static String getLocalDateTimeString(ResultSet rs, String columnName, DateTimeFormatter dateTimeFormat) throws SQLException {
+        LocalDateTime result = getLocalDateTime(rs, columnName);
+        return result != null ? dateTimeFormat.format(result) : null;
+    }
+
+    public static String getLocalDateTimeString(ResultSet rs, int columnInt, DateTimeFormatter dateTimeFormat) throws SQLException {
+        LocalDateTime result = getLocalDateTime(rs, columnInt);
+        return result != null ? dateTimeFormat.format(result) : null;
+    }
+
+    public static Optional<String> getOptionalLocalDateTimeString(ResultSet rs, String columnName, DateTimeFormatter dateTimeFormat) throws SQLException {
+        return Optional.ofNullable(getLocalDateTimeString(rs, columnName, dateTimeFormat));
+    }
+
+    public static Optional<String> getOptionalLocalDateTimeString(ResultSet rs, int columnInt, DateTimeFormatter dateTimeFormat) throws SQLException {
+        return Optional.ofNullable(getLocalDateTimeString(rs, columnInt, dateTimeFormat));
     }
 
     /**
