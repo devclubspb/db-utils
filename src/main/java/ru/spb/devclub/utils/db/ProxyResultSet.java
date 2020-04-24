@@ -9,10 +9,8 @@ import java.util.Calendar;
 import java.util.Map;
 
 abstract class ProxyResultSet implements ResultSet {
-    @SuppressWarnings("WeakerAccess")
     protected final ResultSet resultSet;
 
-    @SuppressWarnings("WeakerAccess")
     /**
      * <p>Constructor for ProxyResultSet.</p>
      *
