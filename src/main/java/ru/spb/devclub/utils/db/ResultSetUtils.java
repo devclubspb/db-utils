@@ -496,7 +496,8 @@ public final class ResultSetUtils {
      * @throws java.sql.SQLException              if any.
      */
     public static <T extends Enum<T>> T getEnumByName(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
-        return Enum.valueOf(enumType, rs.getString(columnName));
+        String name = rs.getString(columnName);
+        return name != null ? Enum.valueOf(enumType, name) : null;
     }
 
     /**
@@ -512,12 +513,13 @@ public final class ResultSetUtils {
      * @throws java.sql.SQLException if any.
      */
     public static <T extends Enum<T>> T getEnumByName(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
-        return Enum.valueOf(enumType, rs.getString(columnIndex));
+        String name = rs.getString(columnIndex);
+        return name != null ? Enum.valueOf(enumType, name) : null;
     }
 
     public static <T extends Enum<T>> Optional<T> getOptionalEnumByName(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
         try {
-            return Optional.of(getEnumByName(rs, columnName, enumType));
+            return Optional.ofNullable(getEnumByName(rs, columnName, enumType));
         } catch (IllegalArgumentException ignore) {
             return Optional.empty();
         }
@@ -525,7 +527,7 @@ public final class ResultSetUtils {
 
     public static <T extends Enum<T>> Optional<T> getOptionalEnumByName(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
         try {
-            return Optional.of(getEnumByName(rs, columnIndex, enumType));
+            return Optional.ofNullable(getEnumByName(rs, columnIndex, enumType));
         } catch (IllegalArgumentException ignore) {
             return Optional.empty();
         }
