@@ -170,97 +170,97 @@ class SimpleExtendedResultSet extends ProxyResultSet implements ExtendedResultSe
     /** {@inheritDoc} */
     @Override
     public Optional<String> getOptionalString(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getString(columnIndex));
+        return ResultSetUtils.getOptionalString(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<String> getOptionalString(String columnName) throws SQLException {
-        return Optional.ofNullable(getString(columnName));
+        return ResultSetUtils.getOptionalString(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Boolean> getOptionalBoolean(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getBooleanOrNull(columnIndex));
+        return ResultSetUtils.getOptionalBoolean(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Boolean> getOptionalBoolean(String columnName) throws SQLException {
-        return Optional.ofNullable(getBooleanOrNull(columnName));
+        return ResultSetUtils.getOptionalBoolean(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Byte> getOptionalByte(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getByteOrNull(columnIndex));
+        return ResultSetUtils.getOptionalByte(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Byte> getOptionalByte(String columnName) throws SQLException {
-        return Optional.ofNullable(getByteOrNull(columnName));
+        return ResultSetUtils.getOptionalByte(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Short> getOptionalShort(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getShortOrNull(columnIndex));
+        return ResultSetUtils.getOptionalShort(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Short> getOptionalShort(String columnName) throws SQLException {
-        return Optional.ofNullable(getShortOrNull(columnName));
+        return ResultSetUtils.getOptionalShort(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Integer> getOptionalInt(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getIntOrNull(columnIndex));
+        return ResultSetUtils.getOptionalInt(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Integer> getOptionalInt(String columnName) throws SQLException {
-        return Optional.ofNullable(getIntOrNull(columnName));
+        return ResultSetUtils.getOptionalInt(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Long> getOptionalLong(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getLongOrNull(columnIndex));
+        return ResultSetUtils.getOptionalLong(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Long> getOptionalLong(String columnName) throws SQLException {
-        return Optional.ofNullable(getLongOrNull(columnName));
+        return ResultSetUtils.getOptionalLong(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Float> getOptionalFloat(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getFloatOrNull(columnIndex));
+        return ResultSetUtils.getOptionalFloat(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Float> getOptionalFloat(String columnName) throws SQLException {
-        return Optional.ofNullable(getFloatOrNull(columnName));
+        return ResultSetUtils.getOptionalFloat(resultSet, columnName);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Double> getOptionalDouble(int columnIndex) throws SQLException {
-        return Optional.ofNullable(getDoubleOrNull(columnIndex));
+        return ResultSetUtils.getOptionalDouble(resultSet, columnIndex);
     }
 
     /** {@inheritDoc} */
     @Override
     public Optional<Double> getOptionalDouble(String columnName) throws SQLException {
-        return Optional.ofNullable(getDoubleOrNull(columnName));
+        return ResultSetUtils.getOptionalDouble(resultSet, columnName);
     }
 
     /** {@inheritDoc} */

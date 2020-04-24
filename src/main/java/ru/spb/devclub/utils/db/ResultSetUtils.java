@@ -6,6 +6,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 
 /**
  * <p>ResultSetUtils class.</p>
@@ -14,7 +15,6 @@ import java.time.LocalTime;
  * @version 0.2.0
  * @since 0.1.0
  */
-@SuppressWarnings("WeakerAccess")
 public final class ResultSetUtils {
     private ResultSetUtils() {
     }
@@ -45,6 +45,14 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? result : null;
     }
 
+    public static Optional<Long> getOptionalLong(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getLong(rs, columnName));
+    }
+
+    public static Optional<Long> getOptionalLong(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getLong(rs, columnIndex));
+    }
+
     /**
      * <p>getInt.</p>
      *
@@ -69,6 +77,14 @@ public final class ResultSetUtils {
     public static Integer getInt(ResultSet rs, int columnIndex) throws SQLException {
         int result = rs.getInt(columnIndex);
         return !rs.wasNull() ? result : null;
+    }
+
+    public static Optional<Integer> getOptionalInt(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getInt(rs, columnName));
+    }
+
+    public static Optional<Integer> getOptionalInt(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getInt(rs, columnIndex));
     }
 
     /**
@@ -97,6 +113,14 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? result : null;
     }
 
+    public static Optional<Boolean> getOptionalBoolean(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getBoolean(rs, columnName));
+    }
+
+    public static Optional<Boolean> getOptionalBoolean(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getBoolean(rs, columnIndex));
+    }
+
     /**
      * <p>getShort.</p>
      *
@@ -121,6 +145,14 @@ public final class ResultSetUtils {
     public static Short getShort(ResultSet rs, int columnIndex) throws SQLException {
         short result = rs.getShort(columnIndex);
         return !rs.wasNull() ? result : null;
+    }
+
+    public static Optional<Short> getOptionalShort(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getShort(rs, columnName));
+    }
+
+    public static Optional<Short> getOptionalShort(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getShort(rs, columnIndex));
     }
 
     /**
@@ -149,6 +181,14 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? result : null;
     }
 
+    public static Optional<Byte> getOptionalByte(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getByte(rs, columnName));
+    }
+
+    public static Optional<Byte> getOptionalByte(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getByte(rs, columnIndex));
+    }
+
     /**
      * <p>getDouble.</p>
      *
@@ -175,6 +215,14 @@ public final class ResultSetUtils {
         return !rs.wasNull() ? result : null;
     }
 
+    public static Optional<Double> getOptionalDouble(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getDouble(rs, columnName));
+    }
+
+    public static Optional<Double> getOptionalDouble(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getDouble(rs, columnIndex));
+    }
+
     /**
      * <p>getFloat.</p>
      *
@@ -199,6 +247,22 @@ public final class ResultSetUtils {
     public static Float getFloat(ResultSet rs, int columnIndex) throws SQLException {
         float result = rs.getFloat(columnIndex);
         return !rs.wasNull() ? result : null;
+    }
+
+    public static Optional<Float> getOptionalFloat(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getFloat(rs, columnName));
+    }
+
+    public static Optional<Float> getOptionalFloat(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getFloat(rs, columnIndex));
+    }
+
+    public static Optional<String> getOptionalString(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(rs.getString(columnIndex));
+    }
+
+    public static Optional<String> getOptionalString(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(rs.getString(columnName));
     }
 
     /**
@@ -229,6 +293,14 @@ public final class ResultSetUtils {
         return date != null ? date.toLocalDate() : null;
     }
 
+    public static Optional<LocalDate> getOptionalLocalDate(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getLocalDate(rs, columnName));
+    }
+
+    public static Optional<LocalDate> getOptionalLocalDate(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getLocalDate(rs, columnIndex));
+    }
+
     /**
      * <p>getLocalTime.</p>
      *
@@ -257,6 +329,14 @@ public final class ResultSetUtils {
         return time != null ? time.toLocalTime() : null;
     }
 
+    public static Optional<LocalTime> getOptionalLocalTime(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getLocalTime(rs, columnName));
+    }
+
+    public static Optional<LocalTime> getOptionalLocalTime(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getLocalTime(rs, columnIndex));
+    }
+
     /**
      * <p>getLocalDateTime.</p>
      *
@@ -283,6 +363,14 @@ public final class ResultSetUtils {
     public static LocalDateTime getLocalDateTime(ResultSet rs, int columnIndex) throws SQLException {
         Timestamp timestamp = rs.getTimestamp(columnIndex);
         return timestamp != null ? timestamp.toLocalDateTime() : null;
+    }
+
+    public static Optional<LocalDateTime> getOptionalLocalDateTime(ResultSet rs, String columnName) throws SQLException {
+        return Optional.ofNullable(getLocalDateTime(rs, columnName));
+    }
+
+    public static Optional<LocalDateTime> getOptionalLocalDateTime(ResultSet rs, int columnIndex) throws SQLException {
+        return Optional.ofNullable(getLocalDateTime(rs, columnIndex));
     }
 
     /**
@@ -317,6 +405,22 @@ public final class ResultSetUtils {
         return Enum.valueOf(enumType, rs.getString(columnIndex));
     }
 
+    public static <T extends Enum<T>> Optional<T> getOptionalEnumByName(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
+        try {
+            return Optional.of(getEnumByName(rs, columnName, enumType));
+        } catch (IllegalArgumentException ignore) {
+            return Optional.empty();
+        }
+    }
+
+    public static <T extends Enum<T>> Optional<T> getOptionalEnumByName(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
+        try {
+            return Optional.of(getEnumByName(rs, columnIndex, enumType));
+        } catch (IllegalArgumentException ignore) {
+            return Optional.empty();
+        }
+    }
+
     /**
      * <p>getEnumByOrdinal.</p>
      *
@@ -329,7 +433,6 @@ public final class ResultSetUtils {
      * @throws java.sql.SQLException if any.
      */
     public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
-        //noinspection DuplicatedCode
         try {
             Method method = enumType.getDeclaredMethod("values");
             //noinspection unchecked
@@ -352,7 +455,6 @@ public final class ResultSetUtils {
      * @throws java.sql.SQLException if any.
      */
     public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
-        //noinspection DuplicatedCode
         try {
             Method method = enumType.getDeclaredMethod("values");
             //noinspection unchecked
@@ -360,6 +462,28 @@ public final class ResultSetUtils {
             return values[rs.getInt(columnIndex)];
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new SQLException(e);
+        }
+    }
+
+    public static <T extends Enum<T>> Optional<T> getOptionalEnumByOrdinal(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
+        try {
+            Method method = enumType.getDeclaredMethod("values");
+            //noinspection unchecked
+            T[] values = (T[]) method.invoke(null);
+            return Optional.of(values[rs.getInt(columnName)]);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignore) {
+            return Optional.empty();
+        }
+    }
+
+    public static <T extends Enum<T>> Optional<T> getOptionalEnumByOrdinal(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
+        try {
+            Method method = enumType.getDeclaredMethod("values");
+            //noinspection unchecked
+            T[] values = (T[]) method.invoke(null);
+            return Optional.of(values[rs.getInt(columnIndex)]);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignore) {
+            return Optional.empty();
         }
     }
 
