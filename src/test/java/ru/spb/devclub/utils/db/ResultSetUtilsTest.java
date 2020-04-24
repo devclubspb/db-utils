@@ -62,7 +62,7 @@ public class ResultSetUtilsTest extends BaseResultSetMockTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = SQLException.class)
     public void checkExceptionFromGetByOrdinalEnumByColumnName() throws SQLException {
         String columnLabel = "ignored";
         int enumOrdinal = EntityType.values().length;
@@ -80,7 +80,7 @@ public class ResultSetUtilsTest extends BaseResultSetMockTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = SQLException.class)
     public void checkExceptionFromGetByOrdinalEnumByColumnIndex() throws SQLException {
         int columnIndex = 0;
         int enumOrdinal = EntityType.values().length;
