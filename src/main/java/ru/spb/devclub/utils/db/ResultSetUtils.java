@@ -544,12 +544,12 @@ public final class ResultSetUtils {
      * @param <T> a T object.
      * @throws java.sql.SQLException if any.
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
         try {
             Method method = enumType.getDeclaredMethod("values");
-            //noinspection unchecked
             T[] values = (T[]) method.invoke(null);
-            return values[rs.getInt(columnName)];
+            return getEnumByOrdinal(rs, columnName, values);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new SQLException(e);
         }
@@ -566,37 +566,63 @@ public final class ResultSetUtils {
      * @param <T> a T object.
      * @throws java.sql.SQLException if any.
      */
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
         try {
             Method method = enumType.getDeclaredMethod("values");
-            //noinspection unchecked
             T[] values = (T[]) method.invoke(null);
-            return values[rs.getInt(columnIndex)];
+            return getEnumByOrdinal(rs, columnIndex, values);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new SQLException(e);
         }
     }
 
+    public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, String columnName, T[] values) throws SQLException {
+        try {
+            Integer index = getInt(rs, columnName);
+            return index != null ? values[index] : null;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SQLException(e);
+        }
+    }
+
+    public static <T extends Enum<T>> T getEnumByOrdinal(ResultSet rs, int columnIndex, T[] values) throws SQLException {
+        try {
+            Integer index = getInt(rs, columnIndex);
+            return index != null ? values[index] : null;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SQLException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>> Optional<T> getOptionalEnumByOrdinal(ResultSet rs, String columnName, Class<T> enumType) throws SQLException {
         try {
             Method method = enumType.getDeclaredMethod("values");
-            //noinspection unchecked
             T[] values = (T[]) method.invoke(null);
-            return Optional.of(values[rs.getInt(columnName)]);
+            return getOptionalEnumByOrdinal(rs, columnName, values);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignore) {
             return Optional.empty();
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static <T extends Enum<T>> Optional<T> getOptionalEnumByOrdinal(ResultSet rs, int columnIndex, Class<T> enumType) throws SQLException {
         try {
             Method method = enumType.getDeclaredMethod("values");
-            //noinspection unchecked
             T[] values = (T[]) method.invoke(null);
-            return Optional.of(values[rs.getInt(columnIndex)]);
+            return getOptionalEnumByOrdinal(rs, columnIndex, values);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ignore) {
             return Optional.empty();
         }
+    }
+
+    public static <T extends Enum<T>> Optional<T> getOptionalEnumByOrdinal(ResultSet rs, String columnName, T[] values) throws SQLException {
+        return Optional.ofNullable(getEnumByOrdinal(rs, columnName, values));
+    }
+
+    public static <T extends Enum<T>> Optional<T> getOptionalEnumByOrdinal(ResultSet rs, int columnIndex, T[] values) throws SQLException {
+        return Optional.ofNullable(getEnumByOrdinal(rs, columnIndex, values));
     }
 
     /**
